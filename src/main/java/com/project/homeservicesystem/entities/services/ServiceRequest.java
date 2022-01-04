@@ -1,5 +1,6 @@
 package com.project.homeservicesystem.entities.services;
 
+import com.project.homeservicesystem.entities.users.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +26,6 @@ public class ServiceRequest {
     @ManyToOne
     private Service service;
     private ServiceRequestStatus status = ServiceRequestStatus.UNDER_OFFERING;
+    @ManyToOne
+    private Customer customer;
 }
