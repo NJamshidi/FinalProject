@@ -1,5 +1,6 @@
 package com.project.homeservicesystem.entities.services;
 
+import com.project.homeservicesystem.entities.users.Provider;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +24,6 @@ public class ServiceOffer {
     private int durationInHours;
     @ManyToOne
     private ServiceRequest request;
+    @ManyToOne
+    private Provider provider;
 }
