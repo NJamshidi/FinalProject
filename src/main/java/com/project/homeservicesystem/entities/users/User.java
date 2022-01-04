@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @AllArgsConstructor
     @NoArgsConstructor
@@ -22,5 +23,8 @@ import java.util.Date;
         private String password;
         private Date registerDate = new Date();
         private double credit;
-    }
+    private UserStatus status = UserStatus.NEW;
+    @ManyToMany
+    private Set<Role> roles;
+}
 
