@@ -1,5 +1,6 @@
 package com.project.homeservicesystem.entities.users;
 
+import com.project.homeservicesystem.enumaration.UserStatus;
 import lombok.*;
 
 import javax.persistence.*;

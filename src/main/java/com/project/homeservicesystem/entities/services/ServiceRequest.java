@@ -1,6 +1,7 @@
 package com.project.homeservicesystem.entities.services;
 
 import com.project.homeservicesystem.entities.users.Customer;
+import com.project.homeservicesystem.enumaration.ServiceRequestStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
