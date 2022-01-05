@@ -14,6 +14,7 @@ public final class CustomerBuilder {
     private String firstName;
     private String lastName;
     private String email;
+    private String userName;
     private String password;
     private Date registerDate;
     private double credit;
@@ -43,7 +44,10 @@ public final class CustomerBuilder {
         this.email = email;
         return this;
     }
-
+    public CustomerBuilder withUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
     public CustomerBuilder withPassword(String password) {
         this.password = password;
         return this;
@@ -72,6 +76,7 @@ public final class CustomerBuilder {
         customer.setLastName(lastName);
         customer.setEmail(email);
         customer.setPassword(password);
+        customer.setUserName(userName);
         customer.setRegisterDate(registerDate);
         customer.setCredit(credit);
         customer.setStatus(status);
