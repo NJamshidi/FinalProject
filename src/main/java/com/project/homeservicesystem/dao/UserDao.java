@@ -50,5 +50,27 @@ public class UserDao {
         session.close();
         return users;
     }
+    public User findUserByUserNameAndPass(String userName, String password) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("From User U Where U.password = :password and  U.userName=:userName");
+        query.setParameter("userName", userName);
+        query.setParameter("password", password);
+        User user = (User) query.uniqueResult();
+        transaction.commit();
+        session.close();
+        return user;
+    }
 
+
+    public User findUserByEmail(String email) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("From User U Where U.email = :email");
+        query.setParameter("email", email);
+        User user = (User) query.uniqueResult();
+        transaction.commit();
+        session.close();
+        return user;
+    }
 }
