@@ -46,7 +46,7 @@ public class AdminDao {
         session.close();
         return users;
     }
-    public Admin findByUseAndPass(String userName, String password) {
+    public Admin findByUserNameAndPass(String userName, String password) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("From Admin A Where A.passWord = :password and  A.userName=:username");
