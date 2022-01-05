@@ -49,4 +49,11 @@ public class ServiceDao {
         session.close();
         return service;
     }
+    public void delete(Service service) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(service);
+        transaction.commit();
+        session.close();
+    }
 }
