@@ -39,7 +39,7 @@ public class ServiceDao {
         return service;
     }
 
-    public Service findByName(String title) {
+    public Service findByTitle(String title) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Query<Service> query = session.createQuery("From Service S Where S.title=:title");
