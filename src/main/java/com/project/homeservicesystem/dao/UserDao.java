@@ -1,6 +1,5 @@
 package com.project.homeservicesystem.dao;
 
-import com.project.homeservicesystem.entities.users.Customer;
 import com.project.homeservicesystem.entities.users.User;
 import com.project.homeservicesystem.util.HibernateUtil;
 import org.hibernate.Session;
@@ -10,29 +9,34 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class CustomerDao {
+public class UserDao {
     private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 
-    public void save(Customer customer) {
+    public int save(User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.save(customer);
+        int id = (int) session.save(user);
+        transaction.commit();
+        session.close();
+        if (id == 1) {
+            return 1;
+        }
+        return -1;
+    }
+
+
+    public void update(User user) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(user);
         transaction.commit();
         session.close();
     }
 
-    public void update(Customer customer) {
+    public void delete(User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.update(customer);
-        transaction.commit();
-        session.close();
-    }
-
-    public void delete(Customer customer) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        session.delete(customer);
+        session.delete(user);
         transaction.commit();
         session.close();
     }
@@ -40,24 +44,11 @@ public class CustomerDao {
     public List<User> findAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("from Customer ");
+        Query query = session.createQuery("from User");
         List<User> users = query.list();
         transaction.commit();
         session.close();
         return users;
     }
-
-    public Customer findByUserNameAndPass(String userName,String password) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        Query<Customer> query = session.createQuery("From User U Where U.password = :password and  U.userName=:userName");
-        query.setParameter("userName", userName);
-        query.setParameter("password", password);
-        Customer customer = query.uniqueResult();
-        transaction.commit();
-        session.close();
-        return customer;
-    }
-
 
 }
