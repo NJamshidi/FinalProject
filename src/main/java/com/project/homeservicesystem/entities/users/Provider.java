@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import java.util.Set;
 
@@ -16,7 +18,9 @@ import java.util.Set;
 @Setter
 @Getter
 public class Provider extends User {
-    private String profilePhotoUrl;
+    @Lob
+    @Column(columnDefinition = "BLOB")
+    private byte[] image;
     private long score;
     @ManyToMany
     private Set<Service> services;
