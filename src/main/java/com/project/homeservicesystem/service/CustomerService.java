@@ -17,8 +17,6 @@ public class CustomerService {
         customerDao.save(customer);
     }
     public Customer findCustomerByUserNameAndPass(String userName, String password) {
-        return customerDao.findByUserNameAndPass(userName,password);
-    }
-
+        return customerDao.findByUserNameAndPass(userName,password);}
 
 }
