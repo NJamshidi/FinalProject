@@ -32,5 +32,5 @@ public class ServiceRequest {
     @ManyToOne
     private Customer customer;
     @OneToMany(mappedBy = "serviceRequest")
-    private Set<ServiceOffer> suggestions;
+    private Set<ServiceOffer> offers;
 }
