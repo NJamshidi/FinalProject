@@ -42,23 +42,23 @@ public class CustomerDao {
         session.close();
     }
 
-    public List<User> findAll() {
+    public List<Customer> findAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from Customer ");
-        List<User> users = query.list();
+        List<Customer> customers = query.list();
         transaction.commit();
         session.close();
-        return users;
+        return customers;
     }
 
-    public Customer findByUserNameAndPass(String userName,String password) {
+    public Optional<Customer> findByUserNameAndPass(String userName,String password) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Query<Customer> query = session.createQuery("From User U Where U.password = :password and  U.userName=:userName");
         query.setParameter("userName", userName);
         query.setParameter("password", password);
-        Customer customer = query.uniqueResult();
+        Optional<Customer> customer = Optional.ofNullable(query.uniqueResult());
         transaction.commit();
         session.close();
         return customer;

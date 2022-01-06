@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Setter
 @Service
 @RequiredArgsConstructor
-public class serviceRequestService {
+public class ServiceRequestService {
     private ServiceRequestDao serviceRequestDao;
     public void saveNewServiceRequest(ServiceRequest serviceRequest) {
         serviceRequestDao.save(serviceRequest);
