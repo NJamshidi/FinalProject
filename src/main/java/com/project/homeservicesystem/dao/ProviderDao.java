@@ -45,14 +45,14 @@ public class ProviderDao {
         session.close();
     }
 
-    public List<User> findAll() {
+    public List<Provider> findAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from Provider ");
-        List<User> users = query.list();
+        List<Provider> providers = query.list();
         transaction.commit();
         session.close();
-        return users;
+        return providers;
     }
     public Optional<Provider> findByEmail(String email) {
         Session session = sessionFactory.openSession();
@@ -64,4 +64,16 @@ public class ProviderDao {
         session.close();
         return provider;
     }
+    public Optional<Provider> findByUserNameAndPass(String userName,String password) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Query<Provider> query = session.createQuery("From Provider P Where P.password = :password and  P.userName=:userName");
+        query.setParameter("userName", userName);
+        query.setParameter("password", password);
+        Optional<Provider> provider = Optional.ofNullable(query.uniqueResult());
+        transaction.commit();
+        session.close();
+        return provider;
+    }
+
 }
