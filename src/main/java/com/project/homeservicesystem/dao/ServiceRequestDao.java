@@ -9,7 +9,7 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class serviceRequestDao {
+public class ServiceRequestDao {
         private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 
         public void save(ServiceRequest serviceRequest) {
