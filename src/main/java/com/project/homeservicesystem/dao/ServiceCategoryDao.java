@@ -1,7 +1,7 @@
 package com.project.homeservicesystem.dao;
 
 import com.project.homeservicesystem.entities.services.ServiceCategory;
-import com.project.homeservicesystem.util.HibernateUtil;
+import com.project.homeservicesystem.config.HibernateUtil;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;

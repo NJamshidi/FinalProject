@@ -1,8 +1,7 @@
 package com.project.homeservicesystem.dao;
 
 import com.project.homeservicesystem.entities.users.Provider;
-import com.project.homeservicesystem.entities.users.User;
-import com.project.homeservicesystem.util.HibernateUtil;
+import com.project.homeservicesystem.config.HibernateUtil;
 import com.project.homeservicesystem.util.ImageWrapper;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
