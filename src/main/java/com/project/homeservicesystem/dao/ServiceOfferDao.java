@@ -2,13 +2,16 @@ package com.project.homeservicesystem.dao;
 
 import com.project.homeservicesystem.entities.services.ServiceOffer;
 import com.project.homeservicesystem.util.HibernateUtil;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
+@RequiredArgsConstructor
 public class ServiceOfferDao {
     private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 

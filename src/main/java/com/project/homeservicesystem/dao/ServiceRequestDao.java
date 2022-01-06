@@ -1,14 +1,19 @@
 package com.project.homeservicesystem.dao;
 
+import com.project.homeservicesystem.entities.services.ServiceCategory;
 import com.project.homeservicesystem.entities.services.ServiceRequest;
 import com.project.homeservicesystem.util.HibernateUtil;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+import java.util.Optional;
+@Repository
+@RequiredArgsConstructor
 public class ServiceRequestDao {
         private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 
@@ -56,5 +61,6 @@ public class ServiceRequestDao {
             session.close();
             return serviceRequest;
         }
+
 
 }

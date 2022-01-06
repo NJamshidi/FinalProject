@@ -1,14 +1,20 @@
 package com.project.homeservicesystem.dao;
 
 import com.project.homeservicesystem.entities.users.User;
+import com.project.homeservicesystem.enumaration.Role;
 import com.project.homeservicesystem.util.HibernateUtil;
+import lombok.RequiredArgsConstructor;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
+@RequiredArgsConstructor
 public class UserDao {
     private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 
@@ -72,5 +78,27 @@ public class UserDao {
         transaction.commit();
         session.close();
         return user;
+    }
+
+    public List<User> findUserByConditions(String firstName, String lastName, String email, Role role) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Criteria criteria = session.createCriteria(User.class, "u");
+        if (firstName != null) {
+            criteria.add(Restrictions.eq("u.firstName", firstName));
+        }
+        if (lastName != null) {
+            criteria.add(Restrictions.eq("u.lastName", lastName));
+        }
+        if (email != null) {
+            criteria.add(Restrictions.eq("u.email", email));
+        }
+        if (role != null) {
+            criteria.add(Restrictions.eq("u.role", role));
+        }
+        List<User> users = criteria.list();
+        transaction.commit();
+        session.close();
+        return users;
     }
 }
