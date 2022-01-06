@@ -1,13 +1,9 @@
 package com.project.homeservicesystem.entities.builder;
 
 import com.project.homeservicesystem.entities.users.Customer;
-import com.project.homeservicesystem.entities.users.Role;
 import com.project.homeservicesystem.enumaration.UserStatus;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToMany;
 import java.util.Date;
-import java.util.Set;
 
 public final class CustomerBuilder {
     private Long id;
