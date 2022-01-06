@@ -4,13 +4,18 @@ import com.project.homeservicesystem.entities.users.Provider;
 import com.project.homeservicesystem.entities.users.User;
 import com.project.homeservicesystem.util.HibernateUtil;
 import com.project.homeservicesystem.util.ImageWrapper;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
+@Repository
+@RequiredArgsConstructor
 public class ProviderDao {
     private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 
@@ -49,5 +54,14 @@ public class ProviderDao {
         session.close();
         return users;
     }
-
+    public Optional<Provider> findByEmail(String email) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Query<Provider> query = session.createQuery("FROM Provider provider WHERE provider.email=:email");
+        query.setParameter("email", email);
+        Optional<Provider> provider = Optional.ofNullable(query.uniqueResult());
+        transaction.commit();
+        session.close();
+        return provider;
+    }
 }
