@@ -60,15 +60,15 @@ public class ServiceCategoryDao {
         session.close();
         return serviceCategory;
     }
-    public List<ServiceCategory> findByName(String name) {
+    public Optional<ServiceCategory> findByName(String name) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(ServiceCategory.class, "s");
-        criteria.setFetchMode("providers", FetchMode.EAGER);
-        criteria.add(Restrictions.eq("s.name", name));
-        List<ServiceCategory> serviceCategoryList = criteria.list();
+        Query<ServiceCategory> query = session.createQuery("From ServiceCategory S where S.name=:name");
+        query.setParameter("name", name);
+        Optional<ServiceCategory> serviceCategory = Optional.ofNullable(query.uniqueResult());
         transaction.commit();
         session.close();
-        return serviceCategoryList;
+        return serviceCategory;
     }
+
 }
