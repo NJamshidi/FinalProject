@@ -25,7 +25,7 @@ public class ServiceRequestService {
 
     public ServiceRequest findById(Integer id) {return serviceRequestDao.findServiceRequestByID(id);}
 
-    public ServiceOffer findAcceptedOfferOfRequest(ServiceRequest serviceRequest) {
+    public ServiceOffer findAcceptOfferOfRequest(ServiceRequest serviceRequest) {
         ServiceOffer acceptOffer = null;
         if (serviceRequest.getStatus().equals(ServiceRequestStatus.PAID)) {
             Set<ServiceOffer> serviceOffers = serviceRequest.getOffers();
