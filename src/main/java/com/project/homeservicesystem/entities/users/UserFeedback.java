@@ -1,5 +1,6 @@
 package com.project.homeservicesystem.entities.users;
 
+import com.project.homeservicesystem.entities.services.ServiceRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class UserFeedback {
     private String text;
     @ManyToOne
     private Customer customer;
-    @ManyToOne
-    private Provider provider;
+    @OneToOne
+    private ServiceRequest serviceRequest;
     private int rate;
 }

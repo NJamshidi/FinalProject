@@ -1,6 +1,7 @@
 package com.project.homeservicesystem.entities.services;
 
 import com.project.homeservicesystem.entities.users.Provider;
+import com.project.homeservicesystem.enumaration.ServiceOfferStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,9 @@ public class ServiceOffer {
     private double price;
     private int durationInHours;
     @ManyToOne
-    private ServiceRequest request;
+    private ServiceRequest serviceRequest;
     @ManyToOne
     private Provider provider;
+    @Enumerated(EnumType.STRING)
+    private ServiceOfferStatus serviceOfferStatus;
 }

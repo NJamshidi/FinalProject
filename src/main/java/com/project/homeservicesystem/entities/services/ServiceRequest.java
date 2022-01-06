@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -25,8 +26,11 @@ public class ServiceRequest {
     private Date startDate;
     private String address;
     @ManyToOne
-    private MainService mainService;
+    private ServiceCategory serviceCategory;
+    @Enumerated(EnumType.STRING)
     private ServiceRequestStatus status = ServiceRequestStatus.UNDER_OFFERING;
     @ManyToOne
     private Customer customer;
+    @OneToMany(mappedBy = "serviceRequest")
+    private Set<ServiceOffer> suggestions;
 }
