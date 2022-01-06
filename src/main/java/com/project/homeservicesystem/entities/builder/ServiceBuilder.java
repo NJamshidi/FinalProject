@@ -1,6 +1,6 @@
 package com.project.homeservicesystem.entities.builder;
 
-import com.project.homeservicesystem.entities.services.Service;
+import com.project.homeservicesystem.entities.services.MainService;
 import com.project.homeservicesystem.entities.services.ServiceCategory;
 
 
@@ -46,14 +46,14 @@ public class ServiceBuilder {
 
 
 
-    public Service build() {
-        Service service = new Service();
-        service.setId(id);
-        service.setTitle(title);
-        service.setBasePrice(basePrice);
-        service.setDescription(description);
-        service.setCategory(category);
-        return service;
+    public MainService build() {
+        MainService mainService = new MainService();
+        mainService.setId(id);
+        mainService.setTitle(title);
+        mainService.setBasePrice(basePrice);
+        mainService.setDescription(description);
+        mainService.setCategory(category);
+        return mainService;
     }
 
 }

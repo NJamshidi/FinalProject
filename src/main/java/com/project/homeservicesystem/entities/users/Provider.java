@@ -1,6 +1,6 @@
 package com.project.homeservicesystem.entities.users;
 
-import com.project.homeservicesystem.entities.services.Service;
+import com.project.homeservicesystem.entities.services.MainService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,5 +23,5 @@ public class Provider extends User {
     private byte[] image;
     private long score;
     @ManyToMany
-    private Set<Service> services;
+    private Set<MainService> mainServices;
 }

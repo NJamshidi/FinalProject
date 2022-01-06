@@ -25,7 +25,7 @@ public class ServiceRequest {
     private Date startDate;
     private String address;
     @ManyToOne
-    private Service service;
+    private MainService mainService;
     private ServiceRequestStatus status = ServiceRequestStatus.UNDER_OFFERING;
     @ManyToOne
     private Customer customer;

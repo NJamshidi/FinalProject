@@ -1,8 +1,7 @@
 package com.project.homeservicesystem.service;
 
 import com.project.homeservicesystem.dao.ServiceDao;
-import com.project.homeservicesystem.entities.services.Service;
-import com.project.homeservicesystem.entities.users.Customer;
+import com.project.homeservicesystem.entities.services.MainService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -14,11 +13,11 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class ServiceService {
     private ServiceDao serviceDao;
-    public void saveNewService(Service service) {
-        serviceDao.save(service);
+    public void saveNewService(MainService mainService) {
+        serviceDao.save(mainService);
     }
 
-    public Service findServiceByTitle(String title) {
+    public MainService findServiceByTitle(String title) {
         return serviceDao.findByTitle(title);
     }
 }

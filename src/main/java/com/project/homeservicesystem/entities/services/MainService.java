@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Setter
 @Getter
-public class Service {
+public class MainService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
