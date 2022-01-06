@@ -1,7 +1,9 @@
 package com.project.homeservicesystem.entities.users;
 
+import com.project.homeservicesystem.enumaration.Role;
 import com.project.homeservicesystem.enumaration.UserStatus;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +26,12 @@ public class User {
     @Column(nullable = false)
     private String userName;
     private String password;
-    private Date registerDate = new Date();
+    @CreationTimestamp
+    private Date registerDate;
     private double credit;
+    @Enumerated(EnumType.STRING)
     private UserStatus status = UserStatus.NEW;
-    @ManyToMany
-    private Set<Role> roles;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
 
