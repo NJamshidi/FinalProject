@@ -3,13 +3,18 @@ package com.project.homeservicesystem.dao;
 import com.project.homeservicesystem.entities.users.Customer;
 import com.project.homeservicesystem.entities.users.User;
 import com.project.homeservicesystem.util.HibernateUtil;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
+@Repository
+@RequiredArgsConstructor
 public class CustomerDao {
     private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 
@@ -58,6 +63,15 @@ public class CustomerDao {
         session.close();
         return customer;
     }
-
+    public Optional<Customer> findByEmail(String email) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Query<Customer> query = session.createQuery("FROM Customer customer WHERE customer.email=:email");
+        query.setParameter("email", email);
+        Optional<Customer> customer = Optional.ofNullable(query.uniqueResult());
+        transaction.commit();
+        session.close();
+        return customer;
+    }
 
 }

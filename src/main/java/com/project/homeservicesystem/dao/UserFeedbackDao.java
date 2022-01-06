@@ -1,6 +1,7 @@
 package com.project.homeservicesystem.dao;
 
 import com.project.homeservicesystem.entities.users.UserFeedback;
+import com.project.homeservicesystem.util.HibernateUtil;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 public class UserFeedbackDao {
-    private final SessionFactory sessionFactory;
+    private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 
     public void save(UserFeedback userFeedback) {
         Session session = sessionFactory.openSession();
