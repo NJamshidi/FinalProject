@@ -28,21 +28,7 @@ public class ServiceBuilder {
         return this;
     }
 
-    public ServiceBuilder withBasePrice(Double basePrice) {
-        this.basePrice = basePrice;
-        return this;
-    }
 
-    public ServiceBuilder withDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
-
-    public ServiceBuilder withCategory(ServiceCategory category) {
-        this.category = category;
-        return this;
-    }
 
 
 
@@ -50,9 +36,6 @@ public class ServiceBuilder {
         MainService mainService = new MainService();
         mainService.setId(id);
         mainService.setTitle(title);
-        mainService.setBasePrice(basePrice);
-        mainService.setDescription(description);
-        mainService.setCategory(category);
         return mainService;
     }
 
