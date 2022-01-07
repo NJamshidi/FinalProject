@@ -2,10 +2,12 @@ package com.project.homeservicesystem.entities.dto;
 
 import com.project.homeservicesystem.enumaration.Role;
 import com.project.homeservicesystem.enumaration.UserStatus;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
 @Data
+@Builder
 public class UserDto {
     private Long id;
     private String firstName;

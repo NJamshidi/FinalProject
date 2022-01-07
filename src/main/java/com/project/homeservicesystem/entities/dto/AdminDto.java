@@ -1,9 +1,11 @@
 package com.project.homeservicesystem.entities.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;
 @Data
+@Builder
 public class AdminDto {
     private int id;
     private String userName;

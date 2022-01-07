@@ -3,6 +3,7 @@ package com.project.homeservicesystem.entities.dto;
 import com.project.homeservicesystem.entities.services.ServiceCategory;
 import com.project.homeservicesystem.enumaration.Role;
 import com.project.homeservicesystem.enumaration.UserStatus;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 @Data
+@Builder
 public class ProviderDto {
     private Long id;
     private String firstName;

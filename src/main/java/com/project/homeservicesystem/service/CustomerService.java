@@ -5,25 +5,30 @@ import com.project.homeservicesystem.entities.users.Customer;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Getter
-@Setter
 @Service
 @RequiredArgsConstructor
+
 public class CustomerService {
     private CustomerDao customerDao;
+
     public void saveNewCustomer(Customer customer) {
-        Optional<Customer> foundUser = customerDao.findByUserNameAndPass(customer.getUserName(), customer.getPassword());
-        if (foundUser.isPresent()) {
-            throw new RuntimeException("customer exist");
-        } else {
-            customerDao.save(customer);
+
+//            Optional<Customer> foundUser = customerDao.findByUserNameAndPass(customer.getUserName(), customer.getPassword());
+//            if (foundUser.isPresent()) {
+//                throw new RuntimeException("customer exist");
+//            } else {
+                customerDao.save(customer);
+//            }
         }
-    }
+
 
     public Customer findCustomerByUserNameAndPass(String userName, String password) {
         Optional<Customer> customer = customerDao.findByUserNameAndPass(userName, password);
@@ -54,5 +59,17 @@ public class CustomerService {
             return customer.get();
         } else
             throw new RuntimeException("customer not found");
+    }
+@Autowired
+    public CustomerService(CustomerDao customerDao) {
+        this.customerDao = customerDao;
+    }
+
+    public CustomerDao getCustomerDao() {
+        return customerDao;
+    }
+
+    public void setCustomerDao(CustomerDao customerDao) {
+        this.customerDao = customerDao;
     }
 }

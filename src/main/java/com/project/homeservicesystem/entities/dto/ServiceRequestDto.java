@@ -3,6 +3,7 @@ package com.project.homeservicesystem.entities.dto;
 import com.project.homeservicesystem.entities.services.ServiceCategory;
 import com.project.homeservicesystem.entities.users.Customer;
 import com.project.homeservicesystem.enumaration.ServiceRequestStatus;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.EnumType;
@@ -10,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import java.util.Date;
 @Data
+@Builder
 public class ServiceRequestDto {
     private Long id;
     private double price;

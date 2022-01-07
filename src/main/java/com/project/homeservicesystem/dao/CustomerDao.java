@@ -54,7 +54,7 @@ public class CustomerDao {
     public Optional<Customer> findByUserNameAndPass(String userName,String password) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        Query<Customer> query = session.createQuery("From User U Where U.password = :password and  U.userName=:userName");
+        Query<Customer> query = session.createQuery("From Customer C Where C.password = :password and  C.userName=:userName");
         query.setParameter("userName", userName);
         query.setParameter("password", password);
         Optional<Customer> customer = Optional.ofNullable(query.uniqueResult());
