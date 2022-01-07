@@ -1,10 +1,9 @@
 package com.project.homeservicesystem.dao;
 
 import com.project.homeservicesystem.entities.services.ServiceCategory;
-import com.project.homeservicesystem.config.HibernateUtil;
+import com.project.homeservicesystem.config.HibernateConfig;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.*;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +13,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class ServiceCategoryDao {
-    private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+    private SessionFactory sessionFactory ;
 
     public void save(ServiceCategory serviceCategory) {
         Session session = sessionFactory.openSession();

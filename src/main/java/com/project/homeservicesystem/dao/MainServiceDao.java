@@ -1,7 +1,7 @@
 package com.project.homeservicesystem.dao;
 
 import com.project.homeservicesystem.entities.services.MainService;
-import com.project.homeservicesystem.config.HibernateUtil;
+import com.project.homeservicesystem.config.HibernateConfig;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class MainServiceDao {
-    private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+    private SessionFactory sessionFactory ;
 
     public void save(MainService mainService) {
         Session session = sessionFactory.openSession();

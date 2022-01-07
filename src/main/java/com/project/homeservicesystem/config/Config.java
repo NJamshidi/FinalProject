@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @ComponentScan("com.project.homeservicesystem")
 @PropertySource("classpath:database.properties")
-@Import({HibernateUtil.class})
+@Import({HibernateConfig.class})
 public class Config {
 
 }

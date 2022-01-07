@@ -44,10 +44,14 @@ public class Main2 {
 //                InsertCustomer
 
         try {
-            Customer narges = (Customer) Customer.builder().firstName("narges").lastName("jam").role(Role.CUSTOMER).userName("n123")
-                    .password("narges@").status(UserStatus.UNDER_APPROVAL)
-                    .build();
-            customerService.saveNewCustomer(narges);
+            Customer narges = new Customer();
+            narges.setFirstName("narges");
+            narges.setLastName("jam");
+            narges.setRole(Role.CUSTOMER);
+            narges.setUserName("n123");
+            narges.setPassword("narges@");
+            narges.setStatus(UserStatus.UNDER_APPROVAL);
+//            customerService.saveNewCustomer(narges);
             Customer roya = new Customer();
             roya.setFirstName("roya");
             roya.setLastName("ahmadi");
@@ -56,10 +60,10 @@ public class Main2 {
             roya.setPassword("roya@");
             roya.setRole(Role.CUSTOMER);
             roya.setStatus(UserStatus.UNDER_APPROVAL);
-            customerService.saveNewCustomer(roya);
-            Provider sara = (Provider) Provider.builder().firstName("sara").lastName("sarmad").email("sara@gmail.com")
-                    .userName("sara123").password("sara111").role(Role.PROVIDER)
-                    .status(UserStatus.UNDER_APPROVAL).build();
+//            customerService.saveNewCustomer(roya);
+//            Provider sara = (Provider) Provider.builder().firstName("sara").lastName("sarmad").email("sara@gmail.com")
+//                    .userName("sara123").password("sara111").role(Role.PROVIDER)
+//                    .status(UserStatus.UNDER_APPROVAL).build();
             Provider provider2 = new Provider();
             provider2.setFirstName("ali");
             provider2.setLastName("alavi");
@@ -101,18 +105,18 @@ public class Main2 {
             mainService5.setTitle("HOME_CLEANING_AND_HYGIENE");
             MainService mainService6 = new MainService();
             mainService6.setTitle("VEHICLES");
-            providerService.saveNewProvider(sara);
-            providerService.saveNewProvider(provider2);
-            providerService.saveNewProvider(provider3);
+//            providerService.saveNewProvider(sara);
+//            providerService.saveNewProvider(provider2);
+//            providerService.saveNewProvider(provider3);
 
-            adminService.saveNewAdmin(admin1);
-            adminService.saveNewAdmin(admin2);
-            mainServiceService.saveNewService(mainService);
-            mainServiceService.saveNewService(mainService2);
-            mainServiceService.saveNewService(mainService3);
-            mainServiceService.saveNewService(mainService4);
-            mainServiceService.saveNewService(mainService5);
-            mainServiceService.saveNewService(mainService6);
+//            adminService.saveNewAdmin(admin1);
+//            adminService.saveNewAdmin(admin2);
+//            mainServiceService.saveNewService(mainService);
+//            mainServiceService.saveNewService(mainService2);
+//            mainServiceService.saveNewService(mainService3);
+//            mainServiceService.saveNewService(mainService4);
+//            mainServiceService.saveNewService(mainService5);
+//            mainServiceService.saveNewService(mainService6);
 
 
 
@@ -162,8 +166,8 @@ public class Main2 {
 
 
 //slectservice
-MainService byId = mainServiceService.findServiceById(2);
-        System.out.println("******** " + byId);
+//MainService byId = mainServiceService.findServiceById(1);
+//        System.out.println("******** " + byId);
         //ایجاد سفارش
         try {
             Customer customer = customerService.findCustomerByEmail("roy@gmail.com");

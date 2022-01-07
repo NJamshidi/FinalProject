@@ -1,7 +1,7 @@
 package com.project.homeservicesystem.dao;
 
 import com.project.homeservicesystem.entities.users.Admin;
-import com.project.homeservicesystem.config.HibernateUtil;
+import com.project.homeservicesystem.config.HibernateConfig;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,7 +15,8 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class AdminDao {
-    private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+    private SessionFactory sessionFactory ;
+//            = HibernateConfig.buildSessionFactory();
 
     public void save(Admin admin) {
         Session session = sessionFactory.openSession();

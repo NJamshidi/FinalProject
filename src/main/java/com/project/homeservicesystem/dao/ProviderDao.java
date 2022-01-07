@@ -1,7 +1,7 @@
 package com.project.homeservicesystem.dao;
 
 import com.project.homeservicesystem.entities.users.Provider;
-import com.project.homeservicesystem.config.HibernateUtil;
+import com.project.homeservicesystem.config.HibernateConfig;
 import com.project.homeservicesystem.validation.ImageWrapper;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class ProviderDao {
-    private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+    private SessionFactory sessionFactory;
 
 
     public void save(Provider provider) {

@@ -2,7 +2,7 @@ package com.project.homeservicesystem.dao;
 
 import com.project.homeservicesystem.entities.users.User;
 import com.project.homeservicesystem.enumaration.Role;
-import com.project.homeservicesystem.config.HibernateUtil;
+import com.project.homeservicesystem.config.HibernateConfig;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class UserDao {
-    private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+    private SessionFactory sessionFactory ;
 
     public int save(User user) {
         Session session = sessionFactory.openSession();
