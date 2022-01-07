@@ -48,4 +48,11 @@ public class CustomerService {
         return customerDao.findAll();
     }
 
+    public Customer findCustomerByEmail(String email) {
+        Optional<Customer> customer = customerDao.findByEmail( email);
+        if (customer.isPresent()) {
+            return customer.get();
+        } else
+            throw new RuntimeException("customer not found");
+    }
 }

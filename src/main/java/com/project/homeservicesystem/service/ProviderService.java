@@ -36,7 +36,7 @@ public class ProviderService {
         }
     }
 
-    public void updateProvider(Provider provider) {
+    public void updateProvider(Provider provider, Double serviceRequestScore) {
         providerDao.update((provider));
     }
 

@@ -1,4 +1,4 @@
-package com.project.homeservicesystem.util;
+package com.project.homeservicesystem.validation;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

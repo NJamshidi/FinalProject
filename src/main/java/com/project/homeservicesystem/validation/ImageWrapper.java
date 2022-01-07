@@ -1,4 +1,4 @@
-package com.project.homeservicesystem.util;
+package com.project.homeservicesystem.validation;
 
 import com.project.homeservicesystem.entities.users.Provider;
 

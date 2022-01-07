@@ -1,6 +1,6 @@
-package com.project.homeservicesystem.util;
+package com.project.homeservicesystem.validation;
 
-public class ValidateInput {
+public class Validation {
 
 
     public static boolean validUserName(String userName) {

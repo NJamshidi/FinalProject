@@ -61,4 +61,14 @@ public class MainServiceDao {
         transaction.commit();
         session.close();
     }
+    public Optional<MainService> findById( Integer id) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Query<MainService> query = session.createQuery("From MainService S Where S.id=:id");
+        query.setParameter("id", id);
+        Optional<MainService> mainService = Optional.ofNullable(query.uniqueResult());
+        transaction.commit();
+        session.close();
+        return mainService;
+    }
 }

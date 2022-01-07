@@ -57,4 +57,12 @@ public class MainServiceService {
         } else
             throw new RuntimeException("no mainService Exist");
     }
+    public MainService findServiceById(Integer id) {
+
+        Optional<MainService> main = mainServiceDao.findById(id);
+        if (main.isPresent()) {
+            return main.get();
+        } else
+            throw new RuntimeException("mainservice not exist");
+    }
 }
