@@ -18,7 +18,7 @@ public abstract class BaseService<T, ID> {
         return jpaRepository.save(entity);
     }
 
-    public T findTById(ID id) {
+    public T findById(ID id) {
         return jpaRepository.findById(id).orElseThrow(() ->
                new NotFoundObjectException("Entity", "ByID", id)
         );

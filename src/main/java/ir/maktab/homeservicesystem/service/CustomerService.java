@@ -1,70 +1,96 @@
 package ir.maktab.homeservicesystem.service;
 
+import ir.maktab.homeservicesystem.data.dao.CustomerDao;
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
+import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
+import ir.maktab.homeservicesystem.validation.Validation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 
-public class CustomerService {
+public class CustomerService extends BaseService<Customer, Integer>{
     private CustomerDao customerDao;
-
-    public void saveNewCustomer(Customer customer) {
-
-            Optional<Customer> foundUser = customerDao.findByUserNameAndPass(customer.getUserName(), customer.getPassword());
-           if (foundUser.isPresent()) {
-               throw new RuntimeException("customer exist");
-           } else {
-                customerDao.save(customer);
-            }
+    private Validation validation = new Validation();
+    @PostConstruct
+    public void init() {
+        setJpaRepository(customerDao);
+    }
+    @Override
+    public Customer saveNewCustomer(Customer customer) {
+        Customer foundedByEmail = findCustomerByEmail(customer.getEmail());
+        if (foundedByEmail != null) {
+            throw new DuplicateInformationException("this email used with another customer");
         }
 
-
-    public Customer findCustomerByUserNameAndPass(String userName, String password) {
-        Optional<Customer> customer = customerDao.findByUserNameAndPass(userName, password);
-        if (customer.isPresent()) {
-            return customer.get();
-        } else
-            throw new RuntimeException("customer not found");
-    }
-    public void deleteCustomer(Customer customer) {
-        Optional<Customer> foundUser = customerDao.findByUserNameAndPass(customer.getUserName(), customer.getPassword());
-        if (foundUser.isPresent()) {
-            customerDao.delete(customer);
-        } else {
-            throw new RuntimeException("there is no customer with these info");
+        if  (validation.validPassword(customer.getPassword())) {
+            throw new  IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
         }
+        customer.setCustomerStatus(UserStatus.NEW);
+        return super.save(customer);
     }
 
-    public void updateCustomer(Customer customer) {
-        customerDao.update(customer);
-    }
-    public List<Customer> findAll() {
-        return customerDao.findAll();
+    @Override
+    public Customer update(Customer customer) {
+        Customer foundedByEmail = findCustomerByEmail(customer.getEmail());
+        if (foundedByEmail != null && !Objects.equals(foundedByEmail.getId(), customer.getId())) {
+            throw new DuplicateInformationException("this email used with another customer");
+        }
+
+        if (validation.validPassword(customer.getPassword())) {
+            throw new  IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
+        }
+        customer.setCustomerStatus(UserStatus.UNDER_APPROVAL);
+        return super.update(customer);
     }
 
     public Customer findCustomerByEmail(String email) {
-        Optional<Customer> customer = customerDao.findByEmail( email);
-        if (customer.isPresent()) {
-            return customer.get();
-        } else
-            throw new RuntimeException("customer not found");
+        return customerDao.findByEmail(email);
     }
-@Autowired
-    public CustomerService(CustomerDao customerDao) {
-        this.customerDao = customerDao;
+    @Transactional
+    public Customer changePassword(int customerId, String oldPassword, String newPassword) {
+        Customer customer = customerDao.getById(customerId);
+        if (!Objects.equals(customer.getPassword(), oldPassword)) {
+            throw new IncorrectInformationException("Old password is incorrect");
+        }
+        if (validation.validPassword(newPassword)) {
+            throw new IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
+        }
+        customer.setPassword(newPassword);
+        return super.update(customer);
     }
 
-    public CustomerDao getCustomerDao() {
-        return customerDao;
+//    @Transactional
+//    public void UpdatePassword(String newPassword, int id) {
+//        customerDao.UpdatePassword(newPassword, id);
+//    }
+
+    @Transactional
+    public Customer increaseCredit(int id, Double amount) {
+        Customer customer = findById(id);
+        double newCredit = customer.getCredit() + amount;
+        customer.setCredit(newCredit);
+        return super.update(customer);
     }
 
-    public void setCustomerDao(CustomerDao customerDao) {
-        this.customerDao = customerDao;
+    @Transactional
+    public Customer decreaseCredit(int id, Double amount) {
+        Customer customer = findById(id);
+        double credit = customer.getCredit();
+        if (credit < amount) {
+            throw new NotEnoughException("Credit is not enough");
+        }
+        double newCredit = credit - amount;
+        customer.setCredit(newCredit);
+        return super.update(customer);
     }
+
 }

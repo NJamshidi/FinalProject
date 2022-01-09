@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 @Repository
 public interface CustomerDao extends JpaRepository<Customer, Integer> {
-      Optional<Customer> findByEmail(String email);
-    Optional<Customer> findByUserNameAndPassword(String userName, String password);
+      Customer findByEmail(String email);
+    Customer findByUserNameAndPassword(String userName, String password);
 
         @Modifying
         @Query(value = "UPDATE Customer c set c.password =:password where c.id=:id")
