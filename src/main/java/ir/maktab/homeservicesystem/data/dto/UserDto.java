@@ -1,6 +1,5 @@
 package ir.maktab.homeservicesystem.data.dto;
 
-import ir.maktab.homeservicesystem.data.enumaration.Role;
 import ir.maktab.homeservicesystem.data.entities.users.UserStatus;
 import lombok.Builder;
 import lombok.Data;

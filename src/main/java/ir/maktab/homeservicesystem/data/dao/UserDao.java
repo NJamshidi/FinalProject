@@ -1,7 +1,6 @@
 package ir.maktab.homeservicesystem.data.dao;
 
 import ir.maktab.homeservicesystem.data.entities.users.User;
-import ir.maktab.homeservicesystem.data.enumaration.Role;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
