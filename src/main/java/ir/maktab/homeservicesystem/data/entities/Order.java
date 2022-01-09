@@ -34,11 +34,11 @@ public class Order {
     @ManyToOne
     private Customer customer;
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
-    private Set<Offer> offers;
+    private Set<Offer> offer;
     @OneToOne(cascade = CascadeType.ALL)
     private Offer acceptedOffer;
 
     public void addOffer(Offer offer) {
-        this.offers.add(offer);
+        this.offer.add(offer);
     }
 }

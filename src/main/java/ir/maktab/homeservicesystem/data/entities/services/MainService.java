@@ -16,4 +16,11 @@ import java.util.Set;
 public class MainService extends Service {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "mainService")
     private Set<SubService> subService = new HashSet<>();
+
+    @Override
+    public String toString() {
+               return super.toString() +
+                "subService=" + subService +
+                '}';
+    }
 }

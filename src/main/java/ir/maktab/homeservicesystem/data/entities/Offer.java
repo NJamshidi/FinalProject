@@ -18,7 +18,7 @@ import java.util.Date;
 public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     @CreationTimestamp
     private Date offerCreateDate;
     private Date startTime;

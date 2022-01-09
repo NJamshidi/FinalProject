@@ -20,7 +20,7 @@ import java.util.Date;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     @CreationTimestamp
     private Date createDate;
     private Double amount;

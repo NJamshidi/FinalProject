@@ -21,7 +21,18 @@ public class SubService extends Service {
     @ManyToOne
     private MainService mainService;
     @ManyToMany(mappedBy = "subService")
-    private Set<Expert> experts = new HashSet<>();
+    private Set<Expert> expert = new HashSet<>();
     @OneToMany(mappedBy = "subService")
-    private Set<Order> Orders = new HashSet<>();
+    private Set<Order> Order = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "basePrice=" + basePrice +
+                ", description='" + description + '\'' +
+                ", mainService=" + mainService +
+                ", expert=" + expert +
+                ", Order=" + Order +
+                '}';
+    }
 }

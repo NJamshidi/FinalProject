@@ -1,6 +1,6 @@
 package ir.maktab.homeservicesystem.service;
 
-import ir.maktab.homeservicesystem.data.dao.ServiceRequestDao;
+import ir.maktab.homeservicesystem.data.dao.OrderDao;
 import ir.maktab.homeservicesystem.data.entities.services.ServiceOffer;
 import ir.maktab.homeservicesystem.data.entities.Order;
 import ir.maktab.homeservicesystem.data.enumaration.OfferStatus;
@@ -17,13 +17,13 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class ServiceRequestService {
-    private ServiceRequestDao serviceRequestDao;
+    private OrderDao orderDao;
 
     public void saveNewServiceRequest(Order order) {
-        serviceRequestDao.save(order);
+        orderDao.save(order);
     }
 
-    public Order findById(Integer id) {return serviceRequestDao.findServiceRequestByID(id);}
+    public Order findById(Integer id) {return orderDao.findServiceRequestByID(id);}
 
     public ServiceOffer findAcceptOfferOfRequest(Order order) {
         ServiceOffer acceptOffer = null;

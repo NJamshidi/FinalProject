@@ -6,8 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.util.Objects;
 
-    @Getter
+@Getter
     @Setter
     @ToString
     @MappedSuperclass
@@ -17,22 +18,20 @@ import javax.persistence.MappedSuperclass;
     public class Service {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+        private int id;
         private String name;
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Service service = (Service) o;
-
-            return id.equals(service.id);
-        }
-
-        @Override
-        public int hashCode() {
-            return id.hashCode();
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Service service = (Service) o;
+        return id == service.id && Objects.equals(name, service.name);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+}
 

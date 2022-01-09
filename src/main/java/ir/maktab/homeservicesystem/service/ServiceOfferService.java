@@ -1,6 +1,6 @@
 package ir.maktab.homeservicesystem.service;
 
-import ir.maktab.homeservicesystem.data.dao.ServiceOfferDao;
+import ir.maktab.homeservicesystem.data.dao.OfferDao;
 import ir.maktab.homeservicesystem.data.entities.services.SubService;
 import ir.maktab.homeservicesystem.data.entities.services.ServiceOffer;
 import ir.maktab.homeservicesystem.data.enumaration.OrderStatus;
@@ -16,9 +16,9 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class ServiceOfferService {
-    private ServiceOfferDao serviceOfferDao;
+    private OfferDao offerDao;
     public void saveNewServiceOffer(ServiceOffer serviceOffer) {
-        serviceOfferDao.save(serviceOffer);
+        offerDao.save(serviceOffer);
     }
 
 

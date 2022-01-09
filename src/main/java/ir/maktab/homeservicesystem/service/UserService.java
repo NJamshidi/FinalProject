@@ -1,6 +1,5 @@
 package ir.maktab.homeservicesystem.service;
 
-import ir.maktab.homeservicesystem.data.dao.UserDao;
 import ir.maktab.homeservicesystem.data.entities.users.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

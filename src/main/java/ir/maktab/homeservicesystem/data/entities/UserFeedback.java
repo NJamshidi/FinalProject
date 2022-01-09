@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class UserFeedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String text;
     @ManyToOne
     private Customer customer;

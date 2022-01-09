@@ -1,6 +1,5 @@
 package ir.maktab.homeservicesystem.service;
 
-import ir.maktab.homeservicesystem.data.dao.CustomerDao;
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

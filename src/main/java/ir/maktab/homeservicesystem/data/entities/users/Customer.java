@@ -2,6 +2,8 @@ package ir.maktab.homeservicesystem.data.entities.users;
 
 import ir.maktab.homeservicesystem.data.entities.Address;
 import ir.maktab.homeservicesystem.data.entities.Order;
+import ir.maktab.homeservicesystem.data.entities.Transaction;
+import ir.maktab.homeservicesystem.data.entities.UserFeedback;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,11 +38,11 @@ public class Customer extends User {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Order> Orders =new HashSet<>();
 
-//    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-//    private Set<Review> reviews= new HashSet<>();
-//
-//    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-//    private Set<Transaction> transactions= new HashSet<>();
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Set<UserFeedback> userFeedback= new HashSet<>();
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Set<Transaction> transaction= new HashSet<>();
 
     @Override
     public String toString() {

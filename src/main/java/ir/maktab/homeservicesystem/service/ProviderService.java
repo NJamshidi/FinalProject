@@ -1,6 +1,6 @@
 package ir.maktab.homeservicesystem.service;
 
-import ir.maktab.homeservicesystem.data.dao.ProviderDao;
+import ir.maktab.homeservicesystem.data.dao.ExpertDao;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,33 +15,33 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ProviderService {
-    private ProviderDao providerDao;
+    private ExpertDao expertDao;
     public void saveNewProvider(Expert expert) {
 
-        Optional<Expert> foundProvider = providerDao.findByUserNameAndPass(expert.getUserName(), expert.getPassword());
+        Optional<Expert> foundProvider = expertDao.findByUserNameAndPass(expert.getUserName(), expert.getPassword());
         if (foundProvider.isPresent()) {
             throw new RuntimeException("provider exist");
         } else {
-            providerDao.save(expert);
+            expertDao.save(expert);
         }
 
     }
 
     public void deleteProvider(Expert expert) {
-        Optional<Expert> foundProvider = providerDao.findByUserNameAndPass(expert.getUserName(), expert.getPassword());
+        Optional<Expert> foundProvider = expertDao.findByUserNameAndPass(expert.getUserName(), expert.getPassword());
         if (foundProvider.isPresent()) {
-            providerDao.delete(expert);
+            expertDao.delete(expert);
         } else {
             throw new RuntimeException("provider not exist");
         }
     }
 
     public void updateProvider(Expert expert, Double serviceRequestScore) {
-        providerDao.update((expert));
+        expertDao.update((expert));
     }
 
     public Expert findByUserNameAndPass(String username, String password) {
-        Optional<Expert> provider = providerDao.findByUserNameAndPass(username, password);
+        Optional<Expert> provider = expertDao.findByUserNameAndPass(username, password);
         if (provider.isPresent()) {
             return provider.get();
         } else
@@ -50,13 +50,13 @@ public class ProviderService {
 
 
     public Expert findByEmail(String email) {
-        Optional<Expert> foundProvider = providerDao.findByEmail(email);
+        Optional<Expert> foundProvider = expertDao.findByEmail(email);
         if (foundProvider.isPresent())
             return foundProvider.get();
         else
             throw new RuntimeException("provider not exist");
     }
     public List<Expert> findAll() {
-        return providerDao.findAll();
+        return expertDao.findAll();
     }
 }
