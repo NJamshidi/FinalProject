@@ -4,6 +4,9 @@ package ir.maktab.homeservicesystem.service;
 import ir.maktab.homeservicesystem.data.dao.CustomerDao;
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
+import ir.maktab.homeservicesystem.exception.DuplicateInformationException;
+import ir.maktab.homeservicesystem.exception.IncorrectInformationException;
+import ir.maktab.homeservicesystem.exception.NotEnoughException;
 import ir.maktab.homeservicesystem.validation.Validation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +39,7 @@ public class CustomerService extends BaseService<Customer, Integer>{
         }
 
         if  (validation.validPassword(customer.getPassword())) {
-            throw new  IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
+            throw new IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
         }
         customer.setCustomerStatus(UserStatus.NEW);
         return super.save(customer);
