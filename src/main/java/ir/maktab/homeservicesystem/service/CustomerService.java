@@ -1,5 +1,6 @@
 package ir.maktab.homeservicesystem.service;
 
+
 import ir.maktab.homeservicesystem.data.dao.CustomerDao;
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
@@ -10,9 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,12 +19,17 @@ import java.util.Optional;
 public class CustomerService extends BaseService<Customer, Integer>{
     private CustomerDao customerDao;
     private Validation validation = new Validation();
+    @Autowired
+    public CustomerService(CustomerDao customerDao) {
+        this.customerDao = customerDao;
+    }
+
     @PostConstruct
     public void init() {
         setJpaRepository(customerDao);
     }
     @Override
-    public Customer saveNewCustomer(Customer customer) {
+    public Customer save(Customer customer) {
         Customer foundedByEmail = findCustomerByEmail(customer.getEmail());
         if (foundedByEmail != null) {
             throw new DuplicateInformationException("this email used with another customer");

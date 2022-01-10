@@ -4,6 +4,7 @@ import ir.maktab.homeservicesystem.data.dao.AdminDao;
 import ir.maktab.homeservicesystem.data.entities.users.Admin;
 import ir.maktab.homeservicesystem.validation.Validation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,14 +16,17 @@ import java.util.Objects;
 public class AdminService extends BaseService<Admin, Integer> {
     private AdminDao adminDao;
     Validation validation = new Validation();
-
+    @Autowired
+    public AdminService(AdminDao adminDao) {
+        this.adminDao = adminDao;
+    }
     @PostConstruct
     public void init() {
         setJpaRepository(adminDao);
     }
 
     @Override
-    public Admin saveNewAdmin(Admin admin) {
+    public Admin save(Admin admin) {
         Admin foundedByemail = findAdminByEmail(admin.getEmail());
         if (foundedByemail != null) {
             throw new DuplicateInformationException("this email used with another admin");
@@ -35,7 +39,7 @@ public class AdminService extends BaseService<Admin, Integer> {
     }
 
     @Override
-    public Admin updateAdmin(Admin admin) {
+    public Admin update(Admin admin) {
         Admin foundedByemail = findAdminByEmail(admin.getEmail());
         if (foundedByemail != null && !Objects.equals(foundedByemail.getId(), admin.getId())) {
             throw new DuplicateInformationException("this email used with another admin");
