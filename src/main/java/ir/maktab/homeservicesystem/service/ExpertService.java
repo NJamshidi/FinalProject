@@ -75,6 +75,24 @@ public class ExpertService extends BaseService<Expert, Integer> {
         expert.setPassword(newPassword);
         return super.update(expert);
     }
-    
+    @Transactional
+    public Expert increaseCredit(int id, Double amount) {
+        Expert expert = findById(id);
+        double newCredit = expert.getCredit() + amount;
+        expert.setCredit(newCredit);
+        return super.update(expert);
+    }
+    @Transactional
+    public Expert decreaseCredit(int id, Double amount) {
+        Expert expert = findById(id);
+        double credit = expert.getCredit();
+        if (credit < amount) {
+            throw new NotEnoughException("Credit is not enough");
+        }
+        double newCredit = credit - amount;
+        expert.setCredit(newCredit);
+        return super.update(expert);
+    }
+
 
 }

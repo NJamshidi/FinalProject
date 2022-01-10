@@ -23,7 +23,7 @@ public class Expert extends User {
     @Lob
     @Column(columnDefinition = "BLOB")
     private byte[] image;
-    private long score;
+    private Double credit = 0.0;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Set<SubService> subService= new HashSet<>();;
     @OneToMany(mappedBy = "expert", cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.LAZY)
@@ -41,7 +41,7 @@ public class Expert extends User {
         return super.toString() +
 
                 "image=" + Arrays.toString(image) +
-                ", score=" + score +
+                ", credit=" + credit +
                 ", subService=" + subService +
                 ", offers=" + offers +
                 ", userFeedbacks=" + userFeedbacks +
