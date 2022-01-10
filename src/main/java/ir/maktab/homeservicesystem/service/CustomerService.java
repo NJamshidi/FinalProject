@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 
 public class CustomerService extends BaseService<Customer, Integer>{
     private CustomerDao customerDao;

@@ -19,7 +19,7 @@ public class Main2 {
     final static MainServiceService mainServiceService = context.getBean(MainServiceService.class);
     final static ServiceCategoryService serviceCategoryService = context.getBean(ServiceCategoryService.class);
     final static CustomerService customerService = context.getBean(CustomerService.class);
-    final static ProviderService providerService = context.getBean(ProviderService.class);
+    final static ExpertService EXPERT_SERVICE = context.getBean(ExpertService.class);
     final static UserService userService = context.getBean(UserService.class);
     final static ServiceRequestService serviceRequestService = context.getBean(ServiceRequestService.class);
     final static ServiceOfferService serviceOfferService = context.getBean(ServiceOfferService.class);

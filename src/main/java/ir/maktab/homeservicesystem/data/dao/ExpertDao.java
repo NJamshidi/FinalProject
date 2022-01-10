@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface ExpertDao extends JpaRepository<Expert, Integer> {
-    Optional<Expert> findByEmail(String email);
+    Expert findByEmail(String email);
     @Modifying
     @Query(value = "UPDATE Expert e set e.password =:password where e.id=:id")
     void UpdatePassword(@Param("password") String password, @Param("id") int id);

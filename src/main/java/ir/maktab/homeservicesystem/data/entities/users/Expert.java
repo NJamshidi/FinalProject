@@ -4,10 +4,12 @@ import ir.maktab.homeservicesystem.data.entities.Offer;
 import ir.maktab.homeservicesystem.data.entities.Transaction;
 import ir.maktab.homeservicesystem.data.entities.UserFeedback;
 import ir.maktab.homeservicesystem.data.entities.services.SubService;
+import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import lombok.*;
 
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,11 +34,19 @@ public class Expert extends User {
 
     @OneToMany(mappedBy = "expert", cascade = CascadeType.ALL)
     private Set<Transaction> transaction;
+    private UserStatus expertStatus;
 
     @Override
     public String toString() {
         return super.toString() +
-                "score=" + score +
+
+                "image=" + Arrays.toString(image) +
+                ", score=" + score +
+                ", subService=" + subService +
+                ", offers=" + offers +
+                ", userFeedbacks=" + userFeedbacks +
+                ", transaction=" + transaction +
+                ", expertStatus=" + expertStatus +
                 '}';
     }
 }

@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class MainServiceService extends BaseService<MainService, Integer> {
     private  MainServiceDao mainServiceDao;
     @Autowired

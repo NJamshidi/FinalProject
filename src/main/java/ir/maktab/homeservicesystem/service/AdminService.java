@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class AdminService extends BaseService<Admin, Integer> {
     private AdminDao adminDao;
     Validation validation = new Validation();
