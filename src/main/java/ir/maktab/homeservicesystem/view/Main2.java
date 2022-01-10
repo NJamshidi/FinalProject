@@ -21,7 +21,7 @@ public class Main2 {
     final static CustomerService customerService = context.getBean(CustomerService.class);
     final static ExpertService EXPERT_SERVICE = context.getBean(ExpertService.class);
     final static UserService userService = context.getBean(UserService.class);
-    final static ServiceRequestService serviceRequestService = context.getBean(ServiceRequestService.class);
+    final static OrderService ORDER_SERVICE = context.getBean(OrderService.class);
     final static OfferService OFFER_SERVICE = context.getBean(OfferService.class);
     final static UserFeedbackService userFeedbackService = context.getBean(UserFeedbackService.class);
     final static Scanner scanner = new Scanner(System.in);
