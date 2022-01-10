@@ -1,17 +1,22 @@
 package ir.maktab.homeservicesystem.service;
 
 import ir.maktab.homeservicesystem.data.dao.UserFeedbackDao;
-import ir.maktab.homeservicesystem.data.entities.users.UserFeedback;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import ir.maktab.homeservicesystem.data.entities.UserFeedback;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import javax.annotation.PostConstruct;
 
-@Setter
-@Getter
 @Service
-@RequiredArgsConstructor
-public class UserFeedbackService {
-    private UserFeedbackDao userFeedbackDao;
-    public void save(UserFeedback userFeedback){userFeedbackDao.save(userFeedback);}
+//@RequiredArgsConstructor
+public class UserFeedbackService extends BaseService<UserFeedback, Integer> {
+    private final UserFeedbackDao userFeedbackDao;
+
+    @Autowired
+    public UserFeedbackService(UserFeedbackDao userFeedbackDao) {
+        this.userFeedbackDao =userFeedbackDao;
+    }
+    @PostConstruct
+    public void init() {
+        setJpaRepository(userFeedbackDao);
+    }
 }
