@@ -14,7 +14,7 @@ import java.util.Objects;
 @Service
 //@RequiredArgsConstructor
 public class AdminService extends BaseService<Admin, Integer> {
-    private AdminDao adminDao;
+    private final AdminDao adminDao;
     Validation validation = new Validation();
     @Autowired
     public AdminService(AdminDao adminDao) {

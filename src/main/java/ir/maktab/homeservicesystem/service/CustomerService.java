@@ -17,7 +17,7 @@ import java.util.Objects;
 //@RequiredArgsConstructor
 
 public class CustomerService extends BaseService<Customer, Integer>{
-    private CustomerDao customerDao;
+    private final CustomerDao customerDao;
     private Validation validation = new Validation();
     @Autowired
     public CustomerService(CustomerDao customerDao) {
