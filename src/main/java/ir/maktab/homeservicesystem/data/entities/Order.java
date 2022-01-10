@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,10 +22,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double price;
+    @Column(length = 250)
     private String description;
     @CreationTimestamp
     private Date createDate;
-    private Date finishDate;
+    @Temporal(TemporalType.DATE)
+    private Date doDate;
     @ManyToOne
     private Address address;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -32,9 +35,10 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status = OrderStatus.UNDER_OFFERING;
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Customer customer;
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
-    private Set<Offer> offer;
+    private Set<Offer> offer = new HashSet<>();;
     @OneToOne(cascade = CascadeType.ALL)
     private Offer acceptedOffer;
 

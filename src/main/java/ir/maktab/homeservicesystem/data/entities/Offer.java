@@ -6,7 +6,6 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -20,14 +19,31 @@ public class Offer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @CreationTimestamp
-    private Date offerCreateDate;
-    private Date startTime;
+    private Date submitOfferDate;
+    @Temporal(TemporalType.TIME)
+    private Date startWorkTime;
     private double price;
-    private int durationInHours;
+    private double durationInHours;
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Order order;
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Expert expert;
     @Enumerated(EnumType.STRING)
     private OfferStatus offerStatus;
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "id=" + id +
+                ", submitOfferDate=" + submitOfferDate +
+                ", startWorkTime=" + startWorkTime +
+                ", price=" + price +
+                ", durationInHours=" + durationInHours +
+                ", order=" + order +
+                ", expert=" + expert +
+                ", offerStatus=" + offerStatus +
+                '}';
+    }
 }

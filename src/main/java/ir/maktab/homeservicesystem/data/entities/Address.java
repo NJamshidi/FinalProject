@@ -25,4 +25,5 @@ public class Address {
     private String street;
     private String alley;
     private String plaque;
+
 }
