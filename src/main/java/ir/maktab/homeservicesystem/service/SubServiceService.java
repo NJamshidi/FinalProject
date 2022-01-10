@@ -45,5 +45,21 @@ public class SubServiceService extends BaseService<SubService, Integer> {
         expertService.update(expert);
         return super.update(subService);
     }
+    @Transactional
+    public SubService removeExpert(int subServiceId, int expertId) {
+        SubService subService = subServiceDao.getById(subServiceId);
+        Expert expert = expertService.findById(expertId);
+
+        Set<Expert> experts = subService.getExpert();
+        experts.remove(expert);
+        subService.setExpert(experts);
+
+        Set<SubService> subServices = expert.getSubService();
+        subServices.remove(subService);
+        expert.setSubService(subServices);
+
+        expertService.update(expert);
+        return super.update(subService);
+    }
 
 }
