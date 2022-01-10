@@ -1,5 +1,6 @@
 package ir.maktab.homeservicesystem.service;
 
+import ir.maktab.homeservicesystem.exception.NotFoundObjectException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,7 @@ public abstract class BaseService<T, ID> {
 
     public T findById(ID id) {
         return jpaRepository.findById(id).orElseThrow(() ->
-               new NotFoundObjectException("Entity", "ByID", id)
+               new NotFoundObjectException("not found object by id: " +id)
         );
     }
 
