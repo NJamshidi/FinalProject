@@ -17,7 +17,7 @@ public class Main2 {
     final static ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
     final static AdminService adminService = context.getBean(AdminService.class);
     final static MainServiceService mainServiceService = context.getBean(MainServiceService.class);
-    final static ServiceCategoryService serviceCategoryService = context.getBean(ServiceCategoryService.class);
+    final static SubServiceService SUB_SERVICE_SERVICE = context.getBean(SubServiceService.class);
     final static CustomerService customerService = context.getBean(CustomerService.class);
     final static ExpertService EXPERT_SERVICE = context.getBean(ExpertService.class);
     final static UserService userService = context.getBean(UserService.class);
