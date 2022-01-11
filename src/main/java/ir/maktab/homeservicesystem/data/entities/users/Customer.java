@@ -21,9 +21,9 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Builder
 public class Customer extends User {
     private UserStatus customerStatus = UserStatus.NEW;
 

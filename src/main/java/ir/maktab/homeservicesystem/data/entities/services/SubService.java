@@ -11,9 +11,9 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+//@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class SubService extends Service {
     private double basePrice;
     @Lob

@@ -14,11 +14,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 @Setter
 @Getter
-@Builder
+//@Builder
 public class Expert extends User {
     @Lob
     @Column(columnDefinition = "BLOB")

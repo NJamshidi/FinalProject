@@ -10,9 +10,9 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+//@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class MainService extends Service {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "mainService")
     private Set<SubService> subService = new HashSet<>();
