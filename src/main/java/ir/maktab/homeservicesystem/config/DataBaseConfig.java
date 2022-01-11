@@ -1,3 +1,4 @@
+/*
 package ir.maktab.homeservicesystem.config;
 
 import ir.maktab.homeservicesystem.data.entities.Offer;
@@ -51,7 +52,7 @@ public class DataBaseConfig {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        entityManagerFactoryBean.setPackagesToScan("ir.maktab.homeservicesystem.data.model");
+        entityManagerFactoryBean.setPackagesToScan("ir.maktab.homeservicesystem.data.entities");
         entityManagerFactoryBean.setJpaProperties(hibernateProperties());
 
         return entityManagerFactoryBean;
@@ -113,3 +114,4 @@ public class DataBaseConfig {
 //    }
 
 
+*/

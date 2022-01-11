@@ -14,14 +14,14 @@ import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 @Service
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class AdminService extends BaseService<Admin, Integer> {
     private final AdminDao adminDao;
     Validation validation = new Validation();
-    @Autowired
-    public AdminService(AdminDao adminDao) {
-        this.adminDao = adminDao;
-    }
+//    @Autowired
+//    public AdminService(AdminDao adminDao) {
+//        this.adminDao = adminDao;
+//    }
     @PostConstruct
     public void init() {
         setJpaRepository(adminDao);

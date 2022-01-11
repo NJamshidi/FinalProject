@@ -1,3 +1,4 @@
+/*
 package ir.maktab.homeservicesystem.config;
 
 import org.springframework.context.annotation.ComponentScan;
@@ -7,8 +8,9 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ComponentScan("ir.maktab.homeservicesystem")
-//@PropertySource("classpath:database.properties")
+@PropertySource("classpath:database.properties")
 @Import(value = {DataBaseConfig.class})
 public class SpringConfig {
 
 }
+*/

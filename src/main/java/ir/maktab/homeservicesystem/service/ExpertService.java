@@ -1,7 +1,6 @@
 package ir.maktab.homeservicesystem.service;
 
 
-import ir.maktab.homeservicesystem.data.dao.CustomerDao;
 import ir.maktab.homeservicesystem.data.dao.ExpertDao;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
@@ -9,16 +8,12 @@ import ir.maktab.homeservicesystem.exception.DuplicateInformationException;
 import ir.maktab.homeservicesystem.exception.IncorrectInformationException;
 import ir.maktab.homeservicesystem.exception.NotEnoughException;
 import ir.maktab.homeservicesystem.validation.Validation;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 //@RequiredArgsConstructor
