@@ -1,4 +1,3 @@
-/*
 package ir.maktab.homeservicesystem.config;
 
 import ir.maktab.homeservicesystem.data.entities.Offer;
@@ -114,4 +113,3 @@ public class DataBaseConfig {
 //    }
 
 
-*/
