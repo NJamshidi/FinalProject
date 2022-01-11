@@ -20,7 +20,7 @@ import java.util.Set;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private double price;
     @Column(length = 250)
     private String description;
