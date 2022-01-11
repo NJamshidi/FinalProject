@@ -1,3 +1,4 @@
+/*
 package ir.maktab.homeservicesystem.view;
 
 import ir.maktab.homeservicesystem.config.Config;
@@ -69,3 +70,4 @@ public class CustomerView {
         }
     }
 }
+*/
