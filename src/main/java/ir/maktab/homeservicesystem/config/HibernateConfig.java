@@ -1,10 +1,10 @@
 package ir.maktab.homeservicesystem.config;
 
+import ir.maktab.homeservicesystem.data.entities.Offer;
+import ir.maktab.homeservicesystem.data.entities.UserFeedback;
 import ir.maktab.homeservicesystem.data.entities.services.MainService;
 import ir.maktab.homeservicesystem.data.entities.services.SubService;
-import ir.maktab.homeservicesystem.data.entities.services.ServiceOffer;
 import ir.maktab.homeservicesystem.data.entities.Order;
-import com.project.homeservicesystem.entities.users.*;
 
 import ir.maktab.homeservicesystem.data.entities.users.*;
 import org.hibernate.SessionFactory;
@@ -34,7 +34,7 @@ public class HibernateConfig {
         configuration.addAnnotatedClass(Admin.class);
         configuration.addAnnotatedClass(Order.class);
         configuration.addAnnotatedClass(SubService.class);
-        configuration.addAnnotatedClass(ServiceOffer.class);
+        configuration.addAnnotatedClass(Offer.class);
         configuration.addAnnotatedClass(User.class);
 
         StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
