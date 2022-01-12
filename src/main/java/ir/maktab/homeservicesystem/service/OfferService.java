@@ -27,6 +27,10 @@ public class OfferService extends BaseService<Offer, Integer> {
     public void init() {
         setJpaRepository(offerDao);
     }
+
+    public List<Offer> loadByOrderIdSortAsc(int orderId) {
+        return offerDao.findAllByOrder_IdOrderByPriceAsc(orderId);
+    }
     @Transactional
     public Offer sendOffer(Offer offer) {
         Set<SubService> expertSubService = offer.getExpert().getSubService();
@@ -46,7 +50,5 @@ public class OfferService extends BaseService<Offer, Integer> {
         offer.setOrder(order);
         return super.save(offer);
     }
-    public List<Offer> loadByOrderIdSortAsc(int orderId) {
-        return offerDao.findAllByOrder_IdOrderByPriceAsc(orderId);
-    }
+
 }
