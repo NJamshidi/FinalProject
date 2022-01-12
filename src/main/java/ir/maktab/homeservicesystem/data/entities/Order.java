@@ -4,7 +4,6 @@ import ir.maktab.homeservicesystem.data.entities.services.SubService;
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
 import ir.maktab.homeservicesystem.data.enumaration.OrderStatus;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,7 +23,7 @@ public class Order {
     private double price;
     @Column(length = 250)
     private String description;
-    @CreationTimestamp
+//    @CreationTimestamp
     private Date createDate;
     @Temporal(TemporalType.DATE)
     private Date doDate;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -44,5 +45,8 @@ public class OfferService extends BaseService<Offer, Integer> {
         orderService.update(order);
         offer.setOrder(order);
         return super.save(offer);
+    }
+    public List<Offer> loadByOrderIdSortAsc(int orderId) {
+        return offerDao.findAllByOrder_IdOrderByPriceAsc(orderId);
     }
 }

@@ -6,12 +6,12 @@ import ir.maktab.homeservicesystem.data.entities.Transaction;
 import ir.maktab.homeservicesystem.data.entities.UserFeedback;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +26,7 @@ import java.util.Set;
 public class Customer extends User {
     private UserStatus customerStatus = UserStatus.NEW;
 
-    @CreationTimestamp
+//    @CreationTimestamp
     private Date registerDate;
 
     private Double credit = 0.0;

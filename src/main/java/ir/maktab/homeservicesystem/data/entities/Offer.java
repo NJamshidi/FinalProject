@@ -3,9 +3,9 @@ package ir.maktab.homeservicesystem.data.entities;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
 import ir.maktab.homeservicesystem.data.enumaration.OfferStatus;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -18,7 +18,7 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @CreationTimestamp
+//    @CreationTimestamp
     private Date submitOfferDate;
     @Temporal(TemporalType.TIME)
     private Date startWorkTime;

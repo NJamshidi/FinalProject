@@ -1,19 +1,9 @@
 package ir.maktab.homeservicesystem.config;
 
-import ir.maktab.homeservicesystem.data.entities.Offer;
-import ir.maktab.homeservicesystem.data.entities.UserFeedback;
-import ir.maktab.homeservicesystem.data.entities.services.MainService;
-import ir.maktab.homeservicesystem.data.entities.services.SubService;
-import ir.maktab.homeservicesystem.data.entities.Order;
 
-import ir.maktab.homeservicesystem.data.entities.users.*;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
