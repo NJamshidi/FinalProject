@@ -49,7 +49,7 @@ public class OrderServiceTest {
     @Test
     void acceptOffer() {
         Order order = orderService.findById(2);
-       Offer acceptedOffer = offerService.findById(2;
+       Offer acceptedOffer = offerService.findById(2);
         order.setAcceptedOffer(acceptedOffer);
         Order orderResult = orderService.acceptOffer(order);
         assertNotNull(orderResult);

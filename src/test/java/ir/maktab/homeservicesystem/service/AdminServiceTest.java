@@ -24,7 +24,8 @@ class AdminServiceTest {
         admin.setLastName("jam");
         admin.setEmail("narges@mail.com");
         admin.setPassword("123asd45");
-        assertNotNull(adminService.save(admin));
+        Admin saveAdminResult = adminService.save(admin);
+        assertNotNull(saveAdminResult);
     }
     @Test
     void saveWithPassJustAlphabet() {
@@ -93,7 +94,8 @@ class AdminServiceTest {
         admin.setLastName("nimaie");
         admin.setEmail("nima@mail.com");
         admin.setPassword("123asd45");
-        assertEquals("nima", adminService.update(admin).getFirstName());
+        Admin updateAdminResult = adminService.update(admin);
+        assertEquals("nima", updateAdminResult.getFirstName());
     }
 
     @Test
@@ -110,13 +112,14 @@ class AdminServiceTest {
     @Test
     void loadByEmail() {
         String email = "narges@mail.com";
-        assertEquals("narges@mail.com",adminService.findAdminByEmail(email).getEmail());
+        Admin loadResult = adminService.findAdminByEmail(email);
+        assertEquals("narges@mail.com",loadResult.getEmail());
     }
     @Test
     void loadByIdExist() {
         int id = 1;
-        Admin result = adminService.findById(id);
-        assertNotNull(result);
+        Admin loadByIdResult = adminService.findById(id);
+        assertNotNull(loadByIdResult);
     }
 
     @Test
