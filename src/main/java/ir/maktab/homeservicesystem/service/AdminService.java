@@ -34,7 +34,7 @@ public class AdminService extends BaseService<Admin, Integer> {
             throw new DuplicateInformationException("this email used with another admin");
         }
 
-        if (Validation.validPassword(admin.getPassword())) {
+        if (!Validation.validPassword(admin.getPassword())) {
             throw new IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
         }
         return super.save(admin);
