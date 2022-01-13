@@ -44,7 +44,7 @@ public class OfferService extends BaseService<Offer, Integer> {
         if (expertSuggestedPrice < orderSuggestedPrice) {
             throw new OfferException("expert suggestion price is less than order suggestion price");
         }
-        order.setStatus(OrderStatus.UNDER_SELECTION);
+        order.setStatus(OrderStatus.UNDER_SELECTION); //wait for expert selection
         order.addOffer(offer);
         orderService.update(order);
         offer.setOrder(order);
