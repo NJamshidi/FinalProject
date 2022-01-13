@@ -22,6 +22,7 @@ public class CustomerServiceTest {
         Customer customer = new Customer();
         customer.setFirstName("asal");
         customer.setLastName("ahmadi");
+        customer.setUserName("asal");
         customer.setEmail("ahmadi@gmail.com");
         customer.setPassword("12345678asd");
         customer.setCredit(50000d);

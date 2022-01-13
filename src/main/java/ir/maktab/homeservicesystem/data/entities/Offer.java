@@ -25,10 +25,10 @@ public class Offer {
     private double price;
     private double durationInHours;
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false ,foreignKey = @ForeignKey(name = "FK_OFFER_ORDER"))
     private Order order;
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false,foreignKey = @ForeignKey(name = "FK_OFFER_EXPERT"))
     private Expert expert;
     @Enumerated(EnumType.STRING)
     private OfferStatus offerStatus;

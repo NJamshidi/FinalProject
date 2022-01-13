@@ -1,6 +1,7 @@
 package ir.maktab.homeservicesystem.config;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +22,10 @@ import java.util.Properties;
 @PropertySource("classpath:database.properties")
 @Configuration
 @EnableTransactionManagement
+@RequiredArgsConstructor
 public class DataBaseConfig {
-    @Autowired
-    private  Environment environment;
+//    @Autowired
+    private final Environment environment;
 
     @Bean
     DataSource dataSource() {
