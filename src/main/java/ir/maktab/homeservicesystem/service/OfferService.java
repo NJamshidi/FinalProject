@@ -3,14 +3,18 @@ import ir.maktab.homeservicesystem.data.dao.OfferDao;
 import ir.maktab.homeservicesystem.data.entities.Offer;
 import ir.maktab.homeservicesystem.data.entities.Order;
 import ir.maktab.homeservicesystem.data.entities.services.SubService;
+import ir.maktab.homeservicesystem.data.entities.users.Expert;
 import ir.maktab.homeservicesystem.data.enumaration.OrderStatus;
+import ir.maktab.homeservicesystem.exception.NotFoundObjectException;
 import ir.maktab.homeservicesystem.exception.OfferException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -50,5 +54,13 @@ public class OfferService extends BaseService<Offer, Integer> {
         offer.setOrder(order);
         return super.save(offer);
     }
+  /*  public List<Offer> findByOrder(Order order) {
+        return offerDao.findByOrder(order, Sort.by("expert.credit", "price").descending());
+    }
+
+    public Offer findByOrderAndExpert(Order order, Expert expert) {
+        Optional<Offer> offer = offerDao.findByOrderAndExpert(order, expert);
+        return offer.orElseThrow(() -> new NotFoundObjectException(("offer not found!"));
+    }*/
 
 }
