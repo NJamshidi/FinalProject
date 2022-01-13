@@ -5,6 +5,7 @@ import ir.maktab.homeservicesystem.exception.NotFoundObjectException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ class AddressServiceTest { //with builder
 
     @Test
     void deleteNotExist(){
-        assertThrows(NotFoundObjectException.class, () -> addressService.removeById(5));
+        assertThrows(EmptyResultDataAccessException.class, () -> addressService.removeById(7));
     }
 }
 
