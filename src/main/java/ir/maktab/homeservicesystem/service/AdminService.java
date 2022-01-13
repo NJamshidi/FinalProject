@@ -63,7 +63,7 @@ public class AdminService extends BaseService<Admin, Integer> {
         if (!Objects.equals(admin.getPassword(), oldPassword)) {
             throw new IncorrectInformationException("Old password is incorrect");
         }
-        if (validation.validPassword(newPassword)) {
+        if (!validation.validPassword(newPassword)) {
             throw new IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
         }
         admin.setPassword(newPassword);
