@@ -43,19 +43,19 @@ public class OfferService extends BaseService<Offer, Integer> {
         if (!expertSubService.contains(orderSubService)) {
             throw new OfferException("The expert not have expertise");
         }
-        Double expertSuggestedPrice = offer.getPrice();
-        Double orderSuggestedPrice = order.getPrice();
+        double expertSuggestedPrice = offer.getPrice();
+        double orderSuggestedPrice = order.getPrice();
         if (expertSuggestedPrice < orderSuggestedPrice) {
             throw new OfferException("expert suggestion price is less than order suggestion price");
         }
         order.setStatus(OrderStatus.UNDER_SELECTION); //wait for expert selection
-        order.addOffer(offer);
+        order.addOffer(offer); //get list and add
         orderService.update(order);
         offer.setOrder(order);
         return super.save(offer);
     }
   /*  public List<Offer> findByOrder(Order order) {
-        return offerDao.findByOrder(order, Sort.by("expert.credit", "price").descending());
+        return offerDao.findByOrder(order, Sort.by("expert.rate", "price").descending());
     }
 
     public Offer findByOrderAndExpert(Order order, Expert expert) {

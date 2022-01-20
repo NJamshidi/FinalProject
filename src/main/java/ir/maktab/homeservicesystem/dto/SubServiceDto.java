@@ -1,11 +1,8 @@
-package ir.maktab.homeservicesystem.data.dto;
+package ir.maktab.homeservicesystem.dto;
 
 import ir.maktab.homeservicesystem.data.entities.services.MainService;
 import lombok.Builder;
 import lombok.Data;
-
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 
 @Data
 @Builder

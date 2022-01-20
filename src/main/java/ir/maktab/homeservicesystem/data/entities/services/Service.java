@@ -9,17 +9,17 @@ import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
 @Getter
-    @Setter
-    @ToString
-    @MappedSuperclass
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public class Service {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private int id;
-        private String name;
+@Setter
+@ToString
+@MappedSuperclass
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Service {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String name;
 
     @Override
     public boolean equals(Object o) {

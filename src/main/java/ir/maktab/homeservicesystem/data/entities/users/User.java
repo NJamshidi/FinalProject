@@ -1,6 +1,7 @@
 package ir.maktab.homeservicesystem.data.entities.users;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.util.Objects;
 

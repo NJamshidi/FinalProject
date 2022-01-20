@@ -24,7 +24,6 @@ class AdminServiceTest {
 
     @Test
     @Order(1)
-
     void save() {
         Admin admin = new Admin();
         admin.setFirstName("narges5");
@@ -37,7 +36,6 @@ class AdminServiceTest {
     }
     @Test
     @Order(4)
-
     void saveWithPassJustAlphabet() {
         Admin admin = new Admin();
         admin.setFirstName("ali");
@@ -47,9 +45,9 @@ class AdminServiceTest {
         admin.setPassword("aaaaaaaaa");
         assertThrows(IncorrectInformationException.class, () -> adminService.save(admin));
     }
+
     @Test
     @Order(3)
-
     void saveWithPassJustNumber() {
         Admin admin = new Admin();
         admin.setFirstName("ahmad");
@@ -59,9 +57,9 @@ class AdminServiceTest {
         admin.setPassword("12312345");
         assertThrows(IncorrectInformationException.class, () -> adminService.save(admin));
     }
+
     @Test
     @Order(5)
-
     void SaveWithPassLess8Char() {
         Admin admin = new Admin();
         admin.setFirstName("narges1");

@@ -1,4 +1,4 @@
-package ir.maktab.homeservicesystem.data.dto;
+package ir.maktab.homeservicesystem.dto;
 
 import ir.maktab.homeservicesystem.data.entities.Address;
 import ir.maktab.homeservicesystem.data.entities.Offer;

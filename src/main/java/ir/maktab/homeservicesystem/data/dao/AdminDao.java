@@ -7,13 +7,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
 @Repository
 public interface AdminDao extends JpaRepository<Admin, Integer> {
-      Admin findByEmail(String email);
-      Admin findByUserNameAndPassword(String userName, String password);
-        @Modifying
-        @Query(value = "UPDATE Admin a set a.password =:password where a.id=:id")
-        void UpdatePassword(@Param("password") String password, @Param("id") int id);
-    }
+    Admin findByEmail(String email);
+
+    Admin findByUserNameAndPassword(String userName, String password);
+
+    @Modifying
+    @Query(value = "UPDATE Admin a set a.password =:password where a.id=:id")
+    void UpdatePassword(@Param("password") String password, @Param("id") int id);
+}
 

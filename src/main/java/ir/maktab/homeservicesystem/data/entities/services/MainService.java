@@ -1,9 +1,12 @@
 package ir.maktab.homeservicesystem.data.entities.services;
 
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +22,7 @@ public class MainService extends Service {
 
     @Override
     public String toString() {
-               return super.toString() +
+        return super.toString() +
                 "subService=" + subService +
                 '}';
     }

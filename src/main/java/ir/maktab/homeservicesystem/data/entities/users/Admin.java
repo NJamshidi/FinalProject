@@ -1,8 +1,9 @@
 package ir.maktab.homeservicesystem.data.entities.users;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 
 @Entity
 @Setter
@@ -10,6 +11,6 @@ import javax.persistence.*;
 //@Builder
 //@NoArgsConstructor
 //@AllArgsConstructor
-public class Admin extends User{
+public class Admin extends User {
 
 }

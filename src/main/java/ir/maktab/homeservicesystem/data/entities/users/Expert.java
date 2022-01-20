@@ -5,8 +5,8 @@ import ir.maktab.homeservicesystem.data.entities.Transaction;
 import ir.maktab.homeservicesystem.data.entities.UserFeedback;
 import ir.maktab.homeservicesystem.data.entities.services.SubService;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
-import lombok.*;
-
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -25,8 +25,9 @@ public class Expert extends User {
     private byte[] image;
     private Double credit = 0.0;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-    private Set<SubService> subService= new HashSet<>();;
-    @OneToMany(mappedBy = "expert", cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private Set<SubService> subService = new HashSet<>();
+    ;
+    @OneToMany(mappedBy = "expert", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<Offer> offers = new HashSet<>();
 
     @OneToMany(mappedBy = "expert", cascade = CascadeType.ALL)

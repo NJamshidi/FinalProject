@@ -2,7 +2,8 @@ package ir.maktab.homeservicesystem.data.entities.services;
 
 import ir.maktab.homeservicesystem.data.entities.Order;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;

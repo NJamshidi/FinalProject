@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-@Table(name="orders")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Order {
     private double price;
     @Column(length = 250)
     private String description;
-//    @CreationTimestamp
+    //    @CreationTimestamp
     private Date createDate;
     @Temporal(TemporalType.DATE)
     private Date doDate;
@@ -38,11 +38,12 @@ public class Order {
     @JoinColumn(nullable = false)
     private Customer customer;
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
-    private Set<Offer> offer = new HashSet<>();;
+    private Set<Offer> offer = new HashSet<>();
+    ;
     @OneToOne(cascade = CascadeType.ALL)
     private Offer acceptedOffer;
-
     public void addOffer(Offer offer) {
         this.offer.add(offer);
     }
+
 }

@@ -1,12 +1,13 @@
-package ir.maktab.homeservicesystem.data.dto;
+package ir.maktab.homeservicesystem.dto;
 
 import lombok.Builder;
 import lombok.Data;
 
 
-//@Data
-//@Builder
-public class AdminDto {
+@Data
+@Builder
+public class UserDto {
+
     private int id;
     private String firstName;
     private String lastName;
@@ -16,7 +17,7 @@ public class AdminDto {
 
     @Override
     public String toString() {
-        return "AdminDto{" +
+        return "UserDto{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
