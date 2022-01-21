@@ -3,67 +3,78 @@ package ir.maktab.homeservicesystem.service;
 
 import ir.maktab.homeservicesystem.data.dao.CustomerDao;
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
+import ir.maktab.homeservicesystem.data.enumaration.UserRole;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
+import ir.maktab.homeservicesystem.dto.CustomerDto;
+import ir.maktab.homeservicesystem.dto.mapper.CustomerMapper;
 import ir.maktab.homeservicesystem.exception.DuplicateInformationException;
 import ir.maktab.homeservicesystem.exception.IncorrectInformationException;
-import ir.maktab.homeservicesystem.exception.NotEnoughException;
 import ir.maktab.homeservicesystem.validation.Validation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 @Service
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 
-public class CustomerService extends BaseService<Customer, Integer>{
+public class CustomerService {
     private final CustomerDao customerDao;
     private Validation validation = new Validation();
-    @Autowired
-    public CustomerService(CustomerDao customerDao) {
-        this.customerDao = customerDao;
-    }
+    //    @Autowired
+//    public CustomerService(CustomerDao customerDao) {
+//        this.customerDao = customerDao;
+//    }
+//
+//    @PostConstruct
+//    public void init() {
+//        setJpaRepository(customerDao);
+//    }
+    CustomerMapper customerMapper = new CustomerMapper();
 
-    @PostConstruct
-    public void init() {
-        setJpaRepository(customerDao);
-    }
-    @Override
-    public Customer save(Customer customer) {
+    public CustomerDto saveCustomer(CustomerDto customerDto) {
+        Customer customer = customerMapper.toEntity(customerDto);
         Customer foundedByEmail = findCustomerByEmail(customer.getEmail());
         if (foundedByEmail != null) {
             throw new DuplicateInformationException("this email used with another customer");
         }
 
-        if  (validation.validPassword(customer.getPassword())) {
+        if (validation.validPassword(customerDto.getPassword())) {
             throw new IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
         }
         customer.setCustomerStatus(UserStatus.NEW);
-        return super.save(customer);
+        customer.setCredit(0.0);
+        Customer saveCustomer = customerDao.save(customer);
+        CustomerDto customerDtoSave = customerMapper.toDto(saveCustomer);
+        return customerDtoSave;
     }
 
-    @Override
-    public Customer update(Customer customer) {
-        Customer foundedByEmail = findCustomerByEmail(customer.getEmail());
+    public CustomerDto updateCustomer(CustomerDto customerDto) {
+        Customer customer = customerMapper.toEntity(customerDto);
+        Customer foundedById = customerDao.getById(customer.getId());
+        if (!foundedById.getPassword().equals(customer.getPassword())) {
+            throw new IncorrectInformationException("password Wrong!");
+        }
+        Customer foundedByEmail = loadByEmail(customer.getEmail());
         if (foundedByEmail != null && !Objects.equals(foundedByEmail.getId(), customer.getId())) {
             throw new DuplicateInformationException("this email used with another customer");
         }
-
-        if (validation.validPassword(customer.getPassword())) {
-            throw new  IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
-        }
+        customer.setUserRole(UserRole.CUSTOMER);
         customer.setCustomerStatus(UserStatus.UNDER_APPROVAL);
-        return super.update(customer);
+        Customer customerUpdate = customerDao.save(customer);
+        CustomerDto customerDtoUpdate = customerMapper.toDto(customerUpdate);
+        return customerDtoUpdate;
     }
 
     public Customer findCustomerByEmail(String email) {
         return customerDao.findByEmail(email);
     }
+
     @Transactional
-    public Customer changePassword(int customerId, String oldPassword, String newPassword) {
-        Customer customer = customerDao.getById(customerId);
+    public CustomerDto changePassword(CustomerDto customerDto, String oldPassword, String newPassword) {
+        int id = customerDto.getId();
+        Customer customer = customerDao.getById(id);
         if (!Objects.equals(customer.getPassword(), oldPassword)) {
             throw new IncorrectInformationException("Old password is incorrect");
         }
@@ -71,32 +82,21 @@ public class CustomerService extends BaseService<Customer, Integer>{
             throw new IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
         }
         customer.setPassword(newPassword);
-        return super.update(customer);
+        Customer customerChangePass = customerDao.save(customer);
+        CustomerDto customerDtoUpdatePass = customerMapper.toDto(customerChangePass);
+        return customerDtoUpdatePass;
     }
 
-//    @Transactional
-//    public void UpdatePassword(String newPassword, int id) {
-//        customerDao.UpdatePassword(newPassword, id);
-//    }
-
-    @Transactional
-    public Customer increaseCredit(int id, Double amount) {
-        Customer customer = findById(id);
-        double newCredit = customer.getCredit() + amount;
-        customer.setCredit(newCredit);
-        return super.update(customer);
+    @Transactional(readOnly = true)
+    public Customer loadById(int customerId) {
+        return customerDao.getById(customerId);
     }
 
-    @Transactional
-    public Customer decreaseCredit(int id, Double amount) {
-        Customer customer = findById(id);
-        double credit = customer.getCredit();
-        if (credit < amount) {
-            throw new NotEnoughException("Credit is not enough");
-        }
-        double newCredit = credit - amount;
-        customer.setCredit(newCredit);
-        return super.update(customer);
+    private Customer loadByEmail(String email) {
+        return customerDao.findByEmail(email);
     }
-
 }
+
+
+
+

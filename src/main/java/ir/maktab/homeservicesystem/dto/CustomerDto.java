@@ -4,8 +4,12 @@ import ir.maktab.homeservicesystem.data.entities.Address;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
-@Data
+@Setter
+@Getter
 @Builder
 public class CustomerDto {
     private int id;

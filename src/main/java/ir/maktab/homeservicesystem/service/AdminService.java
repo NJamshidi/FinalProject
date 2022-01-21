@@ -2,6 +2,8 @@ package ir.maktab.homeservicesystem.service;
 
 import ir.maktab.homeservicesystem.data.dao.AdminDao;
 import ir.maktab.homeservicesystem.data.entities.users.Admin;
+import ir.maktab.homeservicesystem.dto.AdminDto;
+import ir.maktab.homeservicesystem.dto.UserDto;
 import ir.maktab.homeservicesystem.exception.DuplicateInformationException;
 import ir.maktab.homeservicesystem.exception.IncorrectInformationException;
 import ir.maktab.homeservicesystem.validation.Validation;
@@ -17,6 +19,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AdminService extends BaseService<Admin, Integer> {
     private final AdminDao adminDao;
+
     Validation validation = new Validation();
 //    @Autowired
 //    public AdminService(AdminDao adminDao) {
@@ -27,7 +30,7 @@ public class AdminService extends BaseService<Admin, Integer> {
         setJpaRepository(adminDao);
     }
 
-    @Override
+    @Transactional
     public Admin save(Admin admin) {
         Admin foundedByemail = findAdminByEmail(admin.getEmail());
         if (foundedByemail != null) {
