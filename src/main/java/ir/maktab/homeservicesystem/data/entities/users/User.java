@@ -11,7 +11,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Builder
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

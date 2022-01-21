@@ -2,6 +2,7 @@ package ir.maktab.homeservicesystem.data.entities.services;
 
 import ir.maktab.homeservicesystem.data.entities.Order;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +26,15 @@ public class SubService extends Service {
     private Set<Expert> expert = new HashSet<>();
     @OneToMany(mappedBy = "subService")
     private Set<Order> Order = new HashSet<>();
+@Builder
+    public SubService(int id, String name, double basePrice, String description, MainService mainService, Set<Expert> expert, Set<ir.maktab.homeservicesystem.data.entities.Order> order) {
+        super(id, name);
+        this.basePrice = basePrice;
+        this.description = description;
+        this.mainService = mainService;
+        this.expert = expert;
+        Order = order;
+    }
 
     @Override
     public String toString() {

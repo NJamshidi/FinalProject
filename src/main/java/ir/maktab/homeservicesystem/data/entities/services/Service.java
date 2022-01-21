@@ -21,6 +21,10 @@ public class Service {
     private int id;
     private String name;
 
+    public Service(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

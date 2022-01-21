@@ -5,6 +5,7 @@ import ir.maktab.homeservicesystem.data.entities.Transaction;
 import ir.maktab.homeservicesystem.data.entities.UserFeedback;
 import ir.maktab.homeservicesystem.data.entities.services.SubService;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,6 +37,17 @@ public class Expert extends User {
     @OneToMany(mappedBy = "expert", cascade = CascadeType.ALL)
     private Set<Transaction> transaction;
     private UserStatus expertStatus;
+@Builder
+    public Expert(int id, String firstName, String lastName, String email, String userName, String password, byte[] image, Double credit, Set<SubService> subService, Set<Offer> offers, Set<UserFeedback> userFeedbacks, Set<Transaction> transaction, UserStatus expertStatus) {
+        super(id, firstName, lastName, email, userName, password);
+        this.image = image;
+        this.credit = credit;
+        this.subService = subService;
+        this.offers = offers;
+        this.userFeedbacks = userFeedbacks;
+        this.transaction = transaction;
+        this.expertStatus = expertStatus;
+    }
 
     @Override
     public String toString() {

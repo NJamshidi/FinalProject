@@ -16,9 +16,20 @@ public class OfferDto {
     private Date startWorkTime;
     private double price;
     private double durationInHours;
-    private Order order;
-    private Expert expert;
+    private OrderDto orderDto;
+    private ExpertDto expertDto;
     private OfferStatus offerStatus;
+@Builder
+    public OfferDto(int id, Date submitOfferDate, Date startWorkTime, double price, double durationInHours, OrderDto orderDto, ExpertDto expertDto, OfferStatus offerStatus) {
+        this.id = id;
+        this.submitOfferDate = submitOfferDate;
+        this.startWorkTime = startWorkTime;
+        this.price = price;
+        this.durationInHours = durationInHours;
+        this.orderDto = orderDto;
+        this.expertDto = expertDto;
+        this.offerStatus = offerStatus;
+    }
 
     @Override
     public String toString() {
@@ -28,8 +39,8 @@ public class OfferDto {
                 ", startWorkTime=" + startWorkTime +
                 ", price=" + price +
                 ", durationInHours=" + durationInHours +
-                ", order=" + order +
-                ", expert=" + expert +
+                ", order=" + orderDto +
+                ", expert=" + expertDto +
                 ", offerStatus=" + offerStatus +
                 '}';
     }

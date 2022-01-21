@@ -5,9 +5,7 @@ import ir.maktab.homeservicesystem.data.entities.Order;
 import ir.maktab.homeservicesystem.data.entities.Transaction;
 import ir.maktab.homeservicesystem.data.entities.UserFeedback;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,9 +19,8 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString(callSuper = true)
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer extends User {
     private UserStatus customerStatus = UserStatus.NEW;
 
@@ -43,6 +40,17 @@ public class Customer extends User {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Transaction> transaction = new HashSet<>();
+    @Builder
+    public Customer(int id, String firstName, String lastName, String email, String userName, String password, UserStatus customerStatus, Date registerDate, Double credit, Address address, Set<Order> orders, Set<UserFeedback> userFeedback, Set<Transaction> transaction) {
+        super(id, firstName, lastName, email, userName, password);
+        this.customerStatus = customerStatus;
+        this.registerDate = registerDate;
+        this.credit = credit;
+        this.address = address;
+        Orders = orders;
+        this.userFeedback = userFeedback;
+        this.transaction = transaction;
+    }
 
     @Override
     public String toString() {
