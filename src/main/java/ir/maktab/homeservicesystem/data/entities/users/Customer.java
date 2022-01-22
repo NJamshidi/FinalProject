@@ -7,6 +7,7 @@ import ir.maktab.homeservicesystem.data.entities.UserFeedback;
 import ir.maktab.homeservicesystem.data.enumaration.UserRole;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.CascadeType;
@@ -22,7 +23,7 @@ import java.util.Set;
 @Getter
 @ToString(callSuper = true)
 @NoArgsConstructor
-//@AllArgsConstructor
+@SuperBuilder
 public class Customer extends User {
     private UserStatus customerStatus = UserStatus.NEW;
 
@@ -43,17 +44,6 @@ public class Customer extends User {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Transaction> transaction = new HashSet<>();
 
-        @Builder
-    public Customer(int id, String firstName, String lastName, String email, String userName, String password, UserRole userRole, UserStatus customerStatus, Date registerDate, Double credit, Address address, Set<Order> orders, Set<UserFeedback> userFeedback, Set<Transaction> transaction) {
-        super(id, firstName, lastName, email, userName, password, userRole);
-        this.customerStatus = customerStatus;
-        this.registerDate = registerDate;
-        this.credit = credit;
-        this.address = address;
-        Orders = orders;
-        this.userFeedback = userFeedback;
-        this.transaction = transaction;
-    }
 
 
     @Override

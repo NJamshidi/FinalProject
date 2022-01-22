@@ -3,6 +3,7 @@ package ir.maktab.homeservicesystem.service;
 
 import ir.maktab.homeservicesystem.data.dao.CustomerDao;
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
+import ir.maktab.homeservicesystem.data.entities.users.CustomerList;
 import ir.maktab.homeservicesystem.data.enumaration.UserRole;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import ir.maktab.homeservicesystem.dto.CustomerDto;
@@ -93,10 +94,29 @@ public class CustomerService {
         return customerDao.getById(customerId);
     }
 
+    public CustomerDto loadByIdReturnDto(int customerId) {
+        Customer customer = customerDao.getById(customerId);
+        CustomerDto customerDto = customerMapper.toDto(customer);
+        return customerDto;
+    }
+
     private Customer loadByEmail(String email) {
         return customerDao.findByEmail(email);
     }
 
+    public CustomerList loadAllCustomers() {
+        List<Customer> customerList = customerDao.findAll();
+        CustomerList customerListResult = new CustomerList();
+        customerList.forEach((c) -> customerListResult.addCustomerModel(customerMapper.toDto(c)));
+        return customerListResult;
+    }
+
+    public CustomerList loadAllCustomersByStatus(UserStatus status) {
+        List<Customer> customerList = customerDao.findAllByCustomerStatus(status);
+        CustomerList customerListResult = new CustomerList();
+        customerList.forEach((c) -> customerListResult.addCustomerModel(customerMapper.toDto(c)));
+        return customerListResult;
+    }
 
 }
 

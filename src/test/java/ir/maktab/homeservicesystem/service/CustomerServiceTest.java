@@ -1,3 +1,4 @@
+/*
 package ir.maktab.homeservicesystem.service;
 
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
@@ -74,3 +75,4 @@ public class CustomerServiceTest {
     }
 
 }
+*/

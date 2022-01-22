@@ -7,9 +7,6 @@ import javax.persistence.Entity;
 @Entity
 @Setter
 @Getter
-@Builder
-@NoArgsConstructor
-//@AllArgsConstructor
 public class Admin extends User {
 
 }

@@ -1,6 +1,7 @@
 package ir.maktab.homeservicesystem.data.entities.services;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,9 +13,9 @@ import java.util.Objects;
 @Setter
 @ToString
 @MappedSuperclass
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

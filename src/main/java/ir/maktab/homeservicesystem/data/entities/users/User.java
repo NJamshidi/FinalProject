@@ -2,6 +2,7 @@ package ir.maktab.homeservicesystem.data.entities.users;
 
 import ir.maktab.homeservicesystem.data.enumaration.UserRole;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -10,6 +11,8 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
+@SuperBuilder
+@AllArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
     @Id
@@ -25,16 +28,7 @@ public class User {
     @Column(nullable = false)
     private UserRole userRole;
 
-    @Builder
-    public User(int id, String firstName, String lastName, String email, String userName, String password, UserRole userRole) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.userName = userName;
-        this.password = password;
-        this.userRole = userRole;
-    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

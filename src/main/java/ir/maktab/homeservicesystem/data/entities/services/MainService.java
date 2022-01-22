@@ -2,6 +2,7 @@ package ir.maktab.homeservicesystem.data.entities.services;
 
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,11 +15,11 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 //@AllArgsConstructor
+@SuperBuilder
 public class MainService extends Service {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "mainService")
     private Set<SubService> subService = new HashSet<>();
 
-    @Builder
     public MainService(int id, String name, Set<SubService> subService) {
         super(id, name);
         this.subService = subService;
