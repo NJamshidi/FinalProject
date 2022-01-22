@@ -96,23 +96,7 @@ public class CustomerService {
     private Customer loadByEmail(String email) {
         return customerDao.findByEmail(email);
     }
-    public CustomerModel loadByIdReturnModel(int customerId) {
-        Customer customer = customerDao.getById(customerId);
-        return new CustomerDto.convertCustomer2Model(customer);
-    }
-    public CustomerListResult findAllCustomers() {
-        List<Customer> customerList = customerDao.findAll();
-        CustomerListResult customerListResult = new CustomerListResult();
-        customerList.forEach((c) -> customerListResult.addCustomerModel(new CustomerModel().convertCustomer2Model(c)));
-        return customerListResult;
-    }
-
-    public CustomerListResult loadAllCustomersByStatus(UserStatus status) {
-        List<Customer> customerList = customerRepository.findAllByCustomerStatus(status);
-        CustomerListResult customerListResult = new CustomerListResult();
-        customerList.forEach((c) -> customerListResult.addCustomerModel(new CustomerModel().convertCustomer2Model(c)));
-        return customerListResult;
-    }
+   
 
 
 }
