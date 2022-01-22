@@ -6,7 +6,6 @@ import ir.maktab.homeservicesystem.exception.DuplicateInformationException;
 import ir.maktab.homeservicesystem.exception.IncorrectInformationException;
 import ir.maktab.homeservicesystem.validation.Validation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +18,8 @@ public class AdminService extends BaseService<Admin, Integer> {
     private final AdminDao adminDao;
 
     Validation validation = new Validation();
-//    @Autowired
+
+    //    @Autowired
 //    public AdminService(AdminDao adminDao) {
 //        this.adminDao = adminDao;
 //    }
@@ -28,7 +28,7 @@ public class AdminService extends BaseService<Admin, Integer> {
         setJpaRepository(adminDao);
     }
 
-    @Transactional
+    @Override
     public Admin save(Admin admin) {
         Admin foundedByemail = findAdminByEmail(admin.getEmail());
         if (foundedByemail != null) {
@@ -71,8 +71,7 @@ public class AdminService extends BaseService<Admin, Integer> {
         return super.update(admin);
     }
 
-//    @Transactional
-//    public void UpdatePassword(String newPassword, int id) {
-//        adminDao.UpdatePassword(newPassword, id);
-//    }
+    public Admin loadByEmail(String email) {
+        return adminDao.findByEmail(email);
+    }
 }
