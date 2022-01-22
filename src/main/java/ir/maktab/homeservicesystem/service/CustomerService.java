@@ -107,14 +107,14 @@ public class CustomerService {
     public CustomerList loadAllCustomers() {
         List<Customer> customerList = customerDao.findAll();
         CustomerList customerListResult = new CustomerList();
-        customerList.forEach((c) -> customerListResult.addCustomerModel(customerMapper.toDto(c)));
+        customerList.forEach((c) -> customerListResult.addCustomerDto(customerMapper.toDto(c)));
         return customerListResult;
     }
 
     public CustomerList loadAllCustomersByStatus(UserStatus status) {
         List<Customer> customerList = customerDao.findAllByCustomerStatus(status);
         CustomerList customerListResult = new CustomerList();
-        customerList.forEach((c) -> customerListResult.addCustomerModel(customerMapper.toDto(c)));
+        customerList.forEach((c) -> customerListResult.addCustomerDto(customerMapper.toDto(c)));
         return customerListResult;
     }
 

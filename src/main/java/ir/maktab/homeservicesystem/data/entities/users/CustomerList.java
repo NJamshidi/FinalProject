@@ -16,7 +16,7 @@ import java.util.List;
 public class CustomerList {
     private List<CustomerDto> customers;
 
-    public void addCustomerModel(CustomerDto customerDto) {
+    public void addCustomerDto(CustomerDto customerDto) {
         if (customers == null) {
             customers = new ArrayList<>();
         }
