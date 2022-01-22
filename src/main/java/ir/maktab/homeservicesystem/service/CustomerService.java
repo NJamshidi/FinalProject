@@ -96,7 +96,6 @@ public class CustomerService {
     private Customer loadByEmail(String email) {
         return customerDao.findByEmail(email);
     }
-   
 
 
 }

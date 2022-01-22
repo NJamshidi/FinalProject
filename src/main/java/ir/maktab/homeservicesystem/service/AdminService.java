@@ -2,8 +2,6 @@ package ir.maktab.homeservicesystem.service;
 
 import ir.maktab.homeservicesystem.data.dao.AdminDao;
 import ir.maktab.homeservicesystem.data.entities.users.Admin;
-import ir.maktab.homeservicesystem.dto.AdminDto;
-import ir.maktab.homeservicesystem.dto.UserDto;
 import ir.maktab.homeservicesystem.exception.DuplicateInformationException;
 import ir.maktab.homeservicesystem.exception.IncorrectInformationException;
 import ir.maktab.homeservicesystem.validation.Validation;

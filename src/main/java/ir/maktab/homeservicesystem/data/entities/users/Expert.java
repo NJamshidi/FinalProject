@@ -4,10 +4,9 @@ import ir.maktab.homeservicesystem.data.entities.Offer;
 import ir.maktab.homeservicesystem.data.entities.Transaction;
 import ir.maktab.homeservicesystem.data.entities.UserFeedback;
 import ir.maktab.homeservicesystem.data.entities.services.SubService;
+import ir.maktab.homeservicesystem.data.enumaration.UserRole;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -15,11 +14,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-//@NoArgsConstructor
-//@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
-//@Builder
+@Builder
 public class Expert extends User {
     @Lob
     @Column(columnDefinition = "BLOB")
@@ -37,9 +36,10 @@ public class Expert extends User {
     @OneToMany(mappedBy = "expert", cascade = CascadeType.ALL)
     private Set<Transaction> transaction;
     private UserStatus expertStatus;
-@Builder
-    public Expert(int id, String firstName, String lastName, String email, String userName, String password, byte[] image, Double credit, Set<SubService> subService, Set<Offer> offers, Set<UserFeedback> userFeedbacks, Set<Transaction> transaction, UserStatus expertStatus) {
-        super(id, firstName, lastName, email, userName, password);
+
+    @Builder
+    public Expert(int id, String firstName, String lastName, String email, String userName, String password, UserRole userRole, byte[] image, Double credit, Set<SubService> subService, Set<Offer> offers, Set<UserFeedback> userFeedbacks, Set<Transaction> transaction, UserStatus expertStatus) {
+        super(id, firstName, lastName, email, userName, password, userRole);
         this.image = image;
         this.credit = credit;
         this.subService = subService;

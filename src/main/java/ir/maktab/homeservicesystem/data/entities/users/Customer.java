@@ -4,8 +4,10 @@ import ir.maktab.homeservicesystem.data.entities.Address;
 import ir.maktab.homeservicesystem.data.entities.Order;
 import ir.maktab.homeservicesystem.data.entities.Transaction;
 import ir.maktab.homeservicesystem.data.entities.UserFeedback;
+import ir.maktab.homeservicesystem.data.enumaration.UserRole;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,11 +22,11 @@ import java.util.Set;
 @Getter
 @ToString(callSuper = true)
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class Customer extends User {
     private UserStatus customerStatus = UserStatus.NEW;
 
-    //    @CreationTimestamp
+    @CreationTimestamp
     private Date registerDate;
 
     private Double credit = 0.0;
@@ -40,9 +42,10 @@ public class Customer extends User {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Transaction> transaction = new HashSet<>();
-    @Builder
-    public Customer(int id, String firstName, String lastName, String email, String userName, String password, UserStatus customerStatus, Date registerDate, Double credit, Address address, Set<Order> orders, Set<UserFeedback> userFeedback, Set<Transaction> transaction) {
-        super(id, firstName, lastName, email, userName, password);
+
+        @Builder
+    public Customer(int id, String firstName, String lastName, String email, String userName, String password, UserRole userRole, UserStatus customerStatus, Date registerDate, Double credit, Address address, Set<Order> orders, Set<UserFeedback> userFeedback, Set<Transaction> transaction) {
+        super(id, firstName, lastName, email, userName, password, userRole);
         this.customerStatus = customerStatus;
         this.registerDate = registerDate;
         this.credit = credit;
@@ -51,6 +54,7 @@ public class Customer extends User {
         this.userFeedback = userFeedback;
         this.transaction = transaction;
     }
+
 
     @Override
     public String toString() {

@@ -1,4 +1,4 @@
-package ir.maktab.homeservicesystem.dto;
+/*package ir.maktab.homeservicesystem.dto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,4 +7,4 @@ import lombok.Data;
 @Builder
 public class AdminDto {
     private int id;
-}
+}*/

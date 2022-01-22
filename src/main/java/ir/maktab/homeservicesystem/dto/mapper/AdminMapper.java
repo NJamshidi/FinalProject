@@ -1,4 +1,4 @@
-package ir.maktab.homeservicesystem.dto.mapper;
+/*package ir.maktab.homeservicesystem.dto.mapper;
 
 import ir.maktab.homeservicesystem.data.entities.users.Admin;
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
@@ -18,4 +18,4 @@ public class AdminMapper {
                     .build();
 
     }
-}
+}*/
