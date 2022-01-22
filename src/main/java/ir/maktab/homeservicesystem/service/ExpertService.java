@@ -115,11 +115,16 @@ public class ExpertService {
     }
 
     public ExpertList loadAllByStatus(UserStatus status) {
-        List<Expert> expertList = expertDao.findByStatus(status);
+        List<Expert> expertList = expertDao.findAllByStatus(status);
         ExpertList expertListResult = new ExpertList();
         expertList.forEach((p) -> expertListResult.addExpertDto(expertMapper.toDto(p)));
         return expertListResult;
     }
 
-   
+    public ExpertList loadBySubServiceId(int subServiceId) {
+        List<Expert> expertList = expertDao.findAllBySubServiceId(subServiceId);
+        ExpertList expertListResult = new ExpertList();
+        expertList.forEach((p) -> expertListResult.addExpertDto(expertMapper.toDto(p)));
+        return expertListResult;
+    }
 }

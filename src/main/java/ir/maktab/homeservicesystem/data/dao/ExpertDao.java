@@ -13,8 +13,9 @@ import java.util.List;
 @Repository
 public interface ExpertDao extends JpaRepository<Expert, Integer> {
     Expert findByEmail(String email);
-    List<Expert> findByStatus(UserStatus status);
+    List<Expert> findAllByStatus(UserStatus status);
 
+    List<Expert> findAllBySubServiceId(int subServiceId);
     @Modifying
     @Query(value = "UPDATE Expert e set e.password =:password where e.id=:id")
     void UpdatePassword(@Param("password") String password, @Param("id") int id);
