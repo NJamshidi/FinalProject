@@ -9,8 +9,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
+@Data
 @Builder
 public class UserFeedback {
     @Id
@@ -27,4 +26,5 @@ public class UserFeedback {
     @OneToOne
     private Offer offer;
     private int rate;
+
 }
