@@ -31,7 +31,8 @@ public class Offer {
     private Expert expert;
     @Enumerated(EnumType.STRING)
     private OfferStatus offerStatus;
-
+    @Builder.Default
+    private Boolean isAccepted = false;
     @Override
     public String toString() {
         return "Offer{" +

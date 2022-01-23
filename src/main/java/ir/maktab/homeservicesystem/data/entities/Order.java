@@ -42,8 +42,20 @@ public class Order {
     ;
     @OneToOne(cascade = CascadeType.ALL)
     private Offer acceptedOffer;
-    public void addOffer(Offer offer) {
-        this.offer.add(offer);
+
+    public void addOffer(Offer offer1) {
+        if (offer == null) {
+            offer = new HashSet<>();
+        }
+        offer.add(offer1);
+        offer1.setOrder(this);
+    }
+
+    public void acceptOffer(Offer offer1) {
+        if (offer.contains(offer1)) {
+            acceptedOffer = offer1;
+            offer1.setIsAccepted(true);
+        }
     }
 
 }
