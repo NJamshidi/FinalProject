@@ -1,43 +1,53 @@
 package ir.maktab.homeservicesystem.controller;
 
-import ir.maktab.homeservicesystem.data.entities.users.Expert;
+import ir.maktab.homeservicesystem.data.entities.users.CustomerList;
+import ir.maktab.homeservicesystem.data.entities.users.ExpertList;
+import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import ir.maktab.homeservicesystem.service.CustomerService;
 import ir.maktab.homeservicesystem.service.ExpertService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping({"/admin"})
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/admins")
 public class AdminController {
 
-    @GetMapping
-    public String getAdminPage(Model m) {
-        Expert expert = new Expert();
-        m.addAttribute(expert);
-        return "admin";
+    private final CustomerService customerService;
+    private final ExpertService expertService;
+
+
+    @GetMapping("/{id}/customers")
+    public ResponseEntity<CustomerList> showAllCustomers(@PathVariable int id) {
+        CustomerList customerList = customerService.loadAllCustomers();
+        return ResponseEntity.ok(customerList);
     }
 
-
-    @GetMapping("/confirmExpert")
-    public String getConfirmExpertPage() {
-        return "confirmExpert";
+    @GetMapping("/{id}/customers/{status}")
+    public ResponseEntity<CustomerList> showAllCustomersByStatus(@PathVariable UserStatus status, @PathVariable int id) {
+        CustomerList customerList = customerService.loadAllCustomersByStatus(status);
+        return ResponseEntity.ok(customerList);
     }
 
-    @GetMapping("/manageService")
-    public String getManageServicePage() {
-        return "manageService";
+    @GetMapping("/{id}/experts")
+    public ResponseEntity<ExpertList> showAllExperts(@PathVariable int id) {
+        ExpertList expertList = expertService.loadAllExperts();
+        return ResponseEntity.ok(expertList);
     }
 
-    @GetMapping("/expertReport")
-    public String getExpertReportPage() {
-        return "expertReport";
+    @GetMapping("/{id}/experts/{status}")
+    public ResponseEntity<ExpertList> showAllProficientsByStatus(@PathVariable UserStatus status, @PathVariable int id) {
+        ExpertList expertList = expertService.loadAllByStatus(status);
+        return ResponseEntity.ok(expertList);
     }
 
-    @GetMapping("/userReport")
-    public String getUserReportPage() {
-        return "userReport";
+    @GetMapping("/{id}/experts/subService/{subServiceId}")
+    public ResponseEntity<ExpertList> showAllProficientsBySubCategoryId(@PathVariable int subServiceId, @PathVariable int id) {
+        ExpertList expertList = expertService.loadBySubServiceId(subServiceId);
+        return ResponseEntity.ok(expertList);
     }
 }
