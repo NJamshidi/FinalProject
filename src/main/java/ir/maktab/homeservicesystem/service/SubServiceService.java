@@ -1,65 +1,62 @@
 package ir.maktab.homeservicesystem.service;
 
 import ir.maktab.homeservicesystem.data.dao.SubServiceDao;
+import ir.maktab.homeservicesystem.data.entities.services.MainService;
 import ir.maktab.homeservicesystem.data.entities.services.SubService;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
-import org.springframework.beans.factory.annotation.Autowired;
+import ir.maktab.homeservicesystem.dto.SubServiceDto;
+import ir.maktab.homeservicesystem.dto.mapper.SubServiceMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
-import java.util.Set;
 
 @Service
-//@RequiredArgsConstructor
-public class SubServiceService extends BaseService<SubService, Integer> {
+@RequiredArgsConstructor
+public class SubServiceService {
     private final SubServiceDao subServiceDao;
     private final ExpertService expertService;
-    @Autowired
-    public SubServiceService(SubServiceDao subServiceDao, ExpertService expertService) {
-        this.subServiceDao =subServiceDao;
-        this.expertService = expertService;
-    }
-    @PostConstruct
-    public void init() {
-        setJpaRepository(subServiceDao);
+    private SubServiceMapper subServiceMapper;
+    private final MainServiceService mainServiceService;
+
+    public SubService loadById(int id) {
+        return subServiceDao.getById(id);
     }
 
     public List<SubService> findByMainServiceId(int id) {
         return subServiceDao.findByMainServiceId(id);
     }
+
     @Transactional
-    public SubService addExpert(int subServiceId, int expertId) {
+    public SubServiceDto addExpert(int subServiceId, int expertId) {
         SubService subService = subServiceDao.getById(subServiceId);
         Expert expert = expertService.findById(expertId);
-
-        Set<Expert> experts = subService.getExpert();
-        experts.add(expert);
-        subService.setExpert(experts);
-
-        Set<SubService> subServices = expert.getSubService();
-        subServices.add(subService);
-        expert.setSubService(subServices);
-
-        expertService.update(expert);
-        return super.update(subService);
+        subService.addExpert(expert);
+        SubService subServiceresult = subServiceDao.save(subService);
+        return subServiceMapper.toDto(subServiceresult);
     }
+
     @Transactional
-    public SubService removeExpert(int subServiceId, int expertId) {
+    public SubServiceDto removeExpert(int subServiceId, int expertId) {
         SubService subService = subServiceDao.getById(subServiceId);
         Expert expert = expertService.findById(expertId);
-
-        Set<Expert> experts = subService.getExpert();
-        experts.remove(expert);
-        subService.setExpert(experts);
-
-        Set<SubService> subServices = expert.getSubService();
-        subServices.remove(subService);
-        expert.setSubService(subServices);
-
-        expertService.update(expert);
-        return super.update(subService);
+        subService.removeExpert(expert);
+        expert.removeSubService(subService);
+        SubService subServiceResult = subServiceDao.save(subService);
+        return subServiceMapper.toDto(subServiceResult);
     }
 
+    @Transactional
+    public SubServiceDto saveSubService(SubServiceDto subserviceDto) {
+        SubService subService = new SubService();
+        subService.setName(subserviceDto.getName());
+
+        MainService mainService = mainServiceService.loadById(subserviceDto.getMainService().getId());
+        subService.setMainService(mainService);
+        mainService.addSubService(subService);
+
+        SubService saveSubServiceResult =subServiceDao.save(subService);
+        return subServiceMapper.toDto(saveSubServiceResult);
+    }
 }

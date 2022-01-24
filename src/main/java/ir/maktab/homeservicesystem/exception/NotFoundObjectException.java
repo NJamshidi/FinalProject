@@ -6,5 +6,5 @@ public class NotFoundObjectException extends RuntimeException {
         super(message);
     }
 
-   
+
 }

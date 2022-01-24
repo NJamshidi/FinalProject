@@ -1,3 +1,4 @@
+/*
 package ir.maktab.homeservicesystem.service;
 
 import ir.maktab.homeservicesystem.data.entities.services.MainService;
@@ -50,3 +51,4 @@ public class SubServiceServiceTest {
         assertEquals(4, subServices.size());
     }
 }
+*/

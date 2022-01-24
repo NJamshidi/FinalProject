@@ -1,7 +1,9 @@
 package ir.maktab.homeservicesystem.data.entities.services;
 
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
@@ -24,14 +26,23 @@ public class MainService extends Service {
         super(id, name);
         this.subService = subService;
     }
+
     public MainService(String name, Set<SubService> subService) {
         super(name);
         this.subService = subService;
     }
 
-
     public MainService(Set<SubService> subService) {
         this.subService = subService;
+    }
+
+
+    public void addSubService(SubService subService1) {
+        if (subService == null) {
+            subService = new HashSet<>();
+        }
+        subService.add(subService1);
+        subService1.setMainService(this);
     }
 
     @Override

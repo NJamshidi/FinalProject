@@ -2,6 +2,7 @@ package ir.maktab.homeservicesystem.data.entities.services;
 
 import ir.maktab.homeservicesystem.data.entities.Order;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
+import ir.maktab.homeservicesystem.exception.NotFoundObjectException;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -25,7 +26,22 @@ public class SubService extends Service {
     private Set<Expert> expert = new HashSet<>();
     @OneToMany(mappedBy = "subService")
     private Set<Order> Order = new HashSet<>();
+    public void addExpert(Expert expert1) {
+        if (expert == null) {
+            expert = new HashSet<>();
+        }
+        expert.add(expert1);
 
+        expert1.addSubService(this);
+    }
+
+    public void removeExpert(Expert expert1){
+        if (expert == null) {
+            throw new NotFoundObjectException("expert ", expert1.getId());
+        }
+        expert.remove(expert1);
+        expert1.removeSubService(this);
+    }
 
     @Override
     public String toString() {
