@@ -7,7 +7,10 @@ import ir.maktab.homeservicesystem.data.entities.users.CustomerList;
 import ir.maktab.homeservicesystem.data.enumaration.UserRole;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import ir.maktab.homeservicesystem.dto.CustomerDto;
+import ir.maktab.homeservicesystem.dto.UserDto;
 import ir.maktab.homeservicesystem.dto.mapper.CustomerMapper;
+import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordParam;
+import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordResult;
 import ir.maktab.homeservicesystem.exception.DuplicateInformationException;
 import ir.maktab.homeservicesystem.exception.IncorrectInformationException;
 import ir.maktab.homeservicesystem.validation.Validation;
@@ -74,9 +77,15 @@ public class CustomerService {
     }
 
     @Transactional
-    public CustomerDto changePassword(CustomerDto customerDto, String oldPassword, String newPassword) {
-        int id = customerDto.getId();
-        Customer customer = customerDao.getById(id);
+    public UserChangePasswordResult changePassword(UserChangePasswordParam userChangePasswordParam) {
+        int customerId = userChangePasswordParam.getUserId();
+        String oldPassword = userChangePasswordParam.getCurrentPassword();
+        String newPassword = userChangePasswordParam.getNewPassword();
+        String confirmNewPass = userChangePasswordParam.getNewPasswordConfirm();
+        if (!newPassword.equals(confirmNewPass)) {
+            throw new IncorrectInformationException("New password and confirm password doesn't match");
+        }
+        Customer customer = customerDao.getById(customerId);
         if (!Objects.equals(customer.getPassword(), oldPassword)) {
             throw new IncorrectInformationException("Old password is incorrect");
         }
@@ -85,8 +94,7 @@ public class CustomerService {
         }
         customer.setPassword(newPassword);
         Customer customerChangePass = customerDao.save(customer);
-        CustomerDto customerDtoUpdatePass = customerMapper.toDto(customerChangePass);
-        return customerDtoUpdatePass;
+        return new UserChangePasswordResult(customerChangePass.getId(), customerChangePass.getPassword());
     }
 
     @Transactional(readOnly = true)

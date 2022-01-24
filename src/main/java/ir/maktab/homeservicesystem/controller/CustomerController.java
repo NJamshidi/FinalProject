@@ -1,33 +1,50 @@
-/*
 package ir.maktab.homeservicesystem.controller;
 
 
-import ir.maktab.homeservicesystem.data.entities.users.Customer;
+import ir.maktab.homeservicesystem.data.entities.Address;
 import ir.maktab.homeservicesystem.dto.CustomerDto;
-import ir.maktab.homeservicesystem.dto.mapper.CustomerMapper;
+import ir.maktab.homeservicesystem.dto.UserDto;
+import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordParam;
+import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordResult;
 import ir.maktab.homeservicesystem.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.servlet.ModelAndView;
+
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/customers")
 public class CustomerController {
+
     private final CustomerService customerService;
-    private final CustomerDto customerDto;
-    CustomerMapper customerMapper;
 
     @PostMapping
-    public Customer save(CustomerDto customerDto) {
-        Customer customer = customerMapper.toEntity(customerDto);
-        customerService.save(customer);
-        return customerService.save(customer);
+    public ResponseEntity<CustomerDto> save(@RequestBody CustomerDto customerDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerDto);
     }
-}*/
+
+    @PutMapping("/{id}/password")
+    public ResponseEntity<UserChangePasswordResult> changePassword(@RequestBody UserChangePasswordParam changePasswordParam,@PathVariable int id) {
+        changePasswordParam.setUserId(id);
+        UserChangePasswordResult userChangePasswordResult = customerService.changePassword(changePasswordParam);
+        return ResponseEntity.ok(userChangePasswordResult);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerDto> update(@PathVariable int id, @RequestBody CustomerDto customerDto) {
+
+        CustomerDto customerDto1 = customerService.loadByIdReturnDto(id);
+        int addressId = customerDto1.getAddress().getId();
+        Address address = customerDto.getAddress();
+        address.setId(addressId);
+        customerDto.setAddress(address);
+
+        customerDto.setId(id);
+
+        CustomerDto customerUpdateResult = customerService.updateCustomer(customerDto);
+        return ResponseEntity.ok(customerUpdateResult);
+    }
+}
+

@@ -4,8 +4,6 @@ import ir.maktab.homeservicesystem.data.enumaration.UserRole;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.management.relation.Role;
-
 
 @Data
 @Builder
