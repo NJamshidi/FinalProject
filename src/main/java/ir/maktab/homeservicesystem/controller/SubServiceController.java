@@ -30,7 +30,7 @@ public class SubServiceController {
     public ResponseEntity<AddExpertToSubServiceResult> addExpertToSubServ(
             @PathVariable int subServiceId, @PathVariable int expertId) {
         AddExpertToSubServiceResult addExpertToSubServiceResult = subServiceService.addExpert(expertId, subServiceId);
-        return ResponseEntity.ok(AddExpertToSubServiceResult);
+        return ResponseEntity.ok(addExpertToSubServiceResult);
     }
 
     @DeleteMapping("/{subServiceId}/experts/{expertId}")

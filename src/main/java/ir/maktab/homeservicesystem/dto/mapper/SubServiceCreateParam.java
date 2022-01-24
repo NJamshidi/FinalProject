@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SubServiceCreateParam {
     private String name;
-    private long mainCategoryId;
+    private Integer mainCategoryId;
 }

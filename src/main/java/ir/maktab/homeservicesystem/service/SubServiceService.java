@@ -5,6 +5,9 @@ import ir.maktab.homeservicesystem.data.entities.services.MainService;
 import ir.maktab.homeservicesystem.data.entities.services.SubService;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
 import ir.maktab.homeservicesystem.dto.SubServiceDto;
+import ir.maktab.homeservicesystem.dto.mapper.AddExpertToSubServiceResult;
+import ir.maktab.homeservicesystem.dto.mapper.ServiceCreateResult;
+import ir.maktab.homeservicesystem.dto.mapper.SubServiceCreateParam;
 import ir.maktab.homeservicesystem.dto.mapper.SubServiceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,12 +32,16 @@ public class SubServiceService {
     }
 
     @Transactional
-    public SubServiceDto addExpert(int subServiceId, int expertId) {
+    public AddExpertToSubServiceResult addExpert(int subServiceId, int expertId) {
         SubService subService = subServiceDao.getById(subServiceId);
         Expert expert = expertService.findById(expertId);
         subService.addExpert(expert);
         SubService subServiceresult = subServiceDao.save(subService);
-        return subServiceMapper.toDto(subServiceresult);
+        return AddExpertToSubServiceResult.builder()
+                .proficientId(expertId)
+                .subCategoryId(subServiceresult.getId())
+                .success(true)
+                .build();
     }
 
     @Transactional
@@ -48,15 +55,16 @@ public class SubServiceService {
     }
 
     @Transactional
-    public SubServiceDto saveSubService(SubServiceDto subserviceDto) {
+    public ServiceCreateResult saveSubService(SubServiceCreateParam createParam) {
         SubService subService = new SubService();
-        subService.setName(subserviceDto.getName());
+        subService.setName(createParam.getName());
 
-        MainService mainService = mainServiceService.loadById(subserviceDto.getMainService().getId());
+        MainService mainService = mainServiceService.loadById(createParam.getMainCategoryId());
         subService.setMainService(mainService);
         mainService.addSubService(subService);
 
         SubService saveSubServiceResult =subServiceDao.save(subService);
-        return subServiceMapper.toDto(saveSubServiceResult);
+        return  new ServiceCreateResult(saveSubServiceResult.getId());
     }
+
 }
