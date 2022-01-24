@@ -17,6 +17,7 @@ public class TransactionMapper {
                 .customer(transaction.getCustomer())
                 .order(transaction.getOrder())
                 .offer(transaction.getOffer())
+                .customerCreditCardNumber(transaction.getCustomerCreditCardNumber())
                 .build();
     }
     public Transaction toEntity(TransactionDto transactionDto){
@@ -28,6 +29,7 @@ public class TransactionMapper {
                 .customer(transactionDto.getCustomer())
                 .order(transactionDto.getOrder())
                 .offer(transactionDto.getOffer())
+                .customerCreditCardNumber(transactionDto.getCustomerCreditCardNumber())
                 .build();
     }
 }

@@ -30,5 +30,7 @@ public class Transaction {
     private Order order;
     @OneToOne
     private Offer offer;
+    private String customerCreditCardNumber;
+
 }
 

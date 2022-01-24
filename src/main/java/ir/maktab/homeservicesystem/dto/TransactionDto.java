@@ -21,6 +21,7 @@ public class TransactionDto {
     private Customer customer;
     private Order order;
     private Offer offer;
+    private String customerCreditCardNumber;
 
     @Override
     public String toString() {
