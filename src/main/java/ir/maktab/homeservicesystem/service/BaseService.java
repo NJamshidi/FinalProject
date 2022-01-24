@@ -21,7 +21,7 @@ public abstract class BaseService<T, ID> {
 
     public T findById(ID id) {
         return jpaRepository.findById(id).orElseThrow(() ->
-               new NotFoundObjectException("not found object by id: " ,id, subService.getId()));
+               new NotFoundObjectException("not found object by id: " , (Integer) id));
     }
 
     @Transactional

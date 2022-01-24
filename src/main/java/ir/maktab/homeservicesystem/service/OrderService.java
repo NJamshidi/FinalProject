@@ -6,6 +6,7 @@ import ir.maktab.homeservicesystem.data.entities.services.SubService;
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
 import ir.maktab.homeservicesystem.data.enumaration.OrderStatus;
 import ir.maktab.homeservicesystem.dto.OrderDto;
+import ir.maktab.homeservicesystem.dto.mapper.OfferAcceptParam;
 import ir.maktab.homeservicesystem.dto.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class OrderService extends BaseService<Order, Integer> {
 //        setJpaRepository(orderDao);
 //    }
     @Transactional
-    public OrderDto acceptOffer(OrderDto orderDto) {
+    public OrderDto acceptOffer(OfferAcceptParam orderDto) {
         Order order = orderDao.getById(orderDto.getId());
         order.getOffer().forEach(o -> {
             if (o.getId() == orderDto.getAcceptedOffer().getId()) {

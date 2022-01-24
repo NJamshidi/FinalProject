@@ -8,6 +8,8 @@ import ir.maktab.homeservicesystem.data.enumaration.UserRole;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import ir.maktab.homeservicesystem.dto.ExpertDto;
 import ir.maktab.homeservicesystem.dto.mapper.ExpertMapper;
+import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordParam;
+import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordResult;
 import ir.maktab.homeservicesystem.exception.DuplicateInformationException;
 import ir.maktab.homeservicesystem.exception.IncorrectInformationException;
 import ir.maktab.homeservicesystem.validation.Validation;
@@ -92,19 +94,26 @@ public class ExpertService {
     }
 
     @Transactional
-    public ExpertDto changePassword(ExpertDto expertDto, String oldPassword, String newPassword) {
-        Expert expert = expertMapper.toEntity(expertDto);
-//        Expert expertById = expertDao.getById(expert.getId());
-        if (!Objects.equals(expert.getPassword(), oldPassword)) {
-            throw new IncorrectInformationException("Old password is incorrect");
-        }
-        if (validation.validPassword(newPassword)) {
-            throw new IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
-        }
-        expert.setPassword(newPassword);
-        ExpertDto expertDtoUpdate = expertMapper.toDto(expert);
-        return updateExpert(expertDtoUpdate);
+    public UserChangePasswordResult changePassword(UserChangePasswordParam changePasswordParam) {
+    int expertId = changePasswordParam.getUserId();
+    String oldPass = changePasswordParam.getCurrentPassword();
+    String newPass = changePasswordParam.getNewPassword();
+    String confirmNewPass = changePasswordParam.getNewPasswordConfirm();
+
+        if (!newPass.equals(confirmNewPass)) {
+        throw new IncorrectInformationException("New password and confirm password doesn't match");
     }
+    Expert expert = expertDao.getById(expertId);
+        if (!Objects.equals(expert.getPassword(), oldPass)) {
+        throw new IncorrectInformationException("Old password doesn't match");
+    }
+        if (validation.validPassword(newPass)) {
+        throw new IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
+    }
+        expert.setPassword(newPass);
+    Expert result = expertDao.save(expert);
+        return new UserChangePasswordResult(result.getId(), result.getPassword());
+}
 
     public ExpertList loadAllExperts() {
         List<Expert> expertList = expertDao.findAll();

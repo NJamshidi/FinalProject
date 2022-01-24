@@ -1,3 +1,4 @@
+/*
 package ir.maktab.homeservicesystem.service;
 
 import ir.maktab.homeservicesystem.data.entities.services.MainService;
@@ -28,3 +29,4 @@ public class MainServiceServiceTest {
         assertNotNull(mainService);
     }
 }
+*/

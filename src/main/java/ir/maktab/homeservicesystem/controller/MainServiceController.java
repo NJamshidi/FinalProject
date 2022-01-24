@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/mainCategories")
+@RequestMapping("/mainServices")
 public class MainServiceController {
 
     private final MainServiceService mainServiceService;
