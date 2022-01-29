@@ -1,7 +1,7 @@
 package ir.maktab.homeservicesystem.controller;
 
-import ir.maktab.homeservicesystem.data.entities.users.CustomerList;
-import ir.maktab.homeservicesystem.data.entities.users.ExpertList;
+import ir.maktab.homeservicesystem.dto.user.customer.CustomerList;
+import ir.maktab.homeservicesystem.dto.user.expert.ExpertList;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import ir.maktab.homeservicesystem.service.CustomerService;
 import ir.maktab.homeservicesystem.service.ExpertService;
@@ -21,8 +21,8 @@ public class AdminController {
     private final ExpertService expertService;
 
 
-    @GetMapping("/{id}/customers")
-    public ResponseEntity<CustomerList> showAllCustomers(@PathVariable int id) {
+    @GetMapping("/customers")
+    public ResponseEntity<CustomerList> showAllCustomers() {
         CustomerList customerList = customerService.loadAllCustomers();
         return ResponseEntity.ok(customerList);
     }
@@ -40,13 +40,13 @@ public class AdminController {
     }
 
     @GetMapping("/{id}/experts/{status}")
-    public ResponseEntity<ExpertList> showAllProficientsByStatus(@PathVariable UserStatus status, @PathVariable int id) {
+    public ResponseEntity<ExpertList> showAllExpertsByStatus(@PathVariable UserStatus status, @PathVariable int id) {
         ExpertList expertList = expertService.loadAllByStatus(status);
         return ResponseEntity.ok(expertList);
     }
 
     @GetMapping("/{id}/experts/subService/{subServiceId}")
-    public ResponseEntity<ExpertList> showAllProficientsBySubCategoryId(@PathVariable int subServiceId, @PathVariable int id) {
+    public ResponseEntity<ExpertList> showAllExpertsBySubServiceId(@PathVariable int subServiceId, @PathVariable int id) {
         ExpertList expertList = expertService.loadBySubServiceId(subServiceId);
         return ResponseEntity.ok(expertList);
     }

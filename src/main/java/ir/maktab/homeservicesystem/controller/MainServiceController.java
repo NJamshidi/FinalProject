@@ -1,7 +1,7 @@
 package ir.maktab.homeservicesystem.controller;
 
 import ir.maktab.homeservicesystem.data.entities.services.MainServiceList;
-import ir.maktab.homeservicesystem.dto.MainServiceDto;
+import ir.maktab.homeservicesystem.dto.service.mainService.MainServiceCreateDto;
 import ir.maktab.homeservicesystem.service.MainServiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,15 +17,15 @@ public class MainServiceController {
     private final MainServiceService mainServiceService;
 
     @PostMapping
-    public ResponseEntity<MainServiceDto> createMainService(@RequestBody MainServiceDto mainServiceDto) {
-        MainServiceDto mainServiceResult = mainServiceService.saveMainService(mainServiceDto);
+    public ResponseEntity<MainServiceCreateDto> createMainService(@RequestBody MainServiceCreateDto mainServiceDto) {
+        MainServiceCreateDto mainServiceResult = mainServiceService.saveMainService(mainServiceDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(mainServiceResult);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MainServiceDto> updateMainService(@RequestBody MainServiceDto mainServiceDto, @PathVariable int id) {
+    public ResponseEntity<MainServiceCreateDto> updateMainService(@RequestBody MainServiceCreateDto mainServiceDto, @PathVariable int id) {
         mainServiceDto.setId(id);
-        MainServiceDto mainServiceUpdateResult = mainServiceService.updateMainService(mainServiceDto);
+        MainServiceCreateDto mainServiceUpdateResult = mainServiceService.updateMainService(mainServiceDto);
         return ResponseEntity.ok(mainServiceUpdateResult);
     }
 
@@ -37,8 +37,8 @@ public class MainServiceController {
 
     @Transactional(readOnly = true)
     @GetMapping("/{id}")
-    public ResponseEntity<MainServiceDto> loadById(@PathVariable int id) {
-        MainServiceDto mainServiceDto = mainServiceService.loadByIdReturnDto(id);
+    public ResponseEntity<MainServiceCreateDto> loadById(@PathVariable int id) {
+        MainServiceCreateDto mainServiceDto = mainServiceService.loadByIdReturnDto(id);
         return ResponseEntity.ok(mainServiceDto);
     }
 }

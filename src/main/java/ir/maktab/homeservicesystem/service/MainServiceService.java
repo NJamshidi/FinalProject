@@ -3,7 +3,7 @@ package ir.maktab.homeservicesystem.service;
 import ir.maktab.homeservicesystem.data.dao.MainServiceDao;
 import ir.maktab.homeservicesystem.data.entities.services.MainService;
 import ir.maktab.homeservicesystem.data.entities.services.MainServiceList;
-import ir.maktab.homeservicesystem.dto.MainServiceDto;
+import ir.maktab.homeservicesystem.dto.service.mainService.MainServiceCreateDto;
 import ir.maktab.homeservicesystem.dto.mapper.MainServiceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,14 +24,14 @@ public class MainServiceService {
     }
 
     @Transactional(readOnly = true)
-    public MainServiceDto loadByIdReturnDto(int id) {
+    public MainServiceCreateDto loadByIdReturnDto(int id) {
         MainService mainService = mainServiceDao.getById(id);
         return mainServiceMapper.toDto(mainService);
 
     }
 
     @Transactional
-    public MainServiceDto saveMainService(MainServiceDto mainServiceDto) {
+    public MainServiceCreateDto saveMainService(MainServiceCreateDto mainServiceDto) {
         MainService mainService = new MainService();
         mainService.setName(mainServiceDto.getName());
         MainService saveResult = mainServiceDao.save(mainService);
@@ -39,7 +39,7 @@ public class MainServiceService {
     }
 
     @Transactional
-    public MainServiceDto updateMainService(MainServiceDto mainServiceDto) {
+    public MainServiceCreateDto updateMainService(MainServiceCreateDto mainServiceDto) {
         MainService mainService = mainServiceDao.getById(mainServiceDto.getId());
         mainService.setName(mainServiceDto.getName());
         MainService saveResult = mainServiceDao.save(mainService);

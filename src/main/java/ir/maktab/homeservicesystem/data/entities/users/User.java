@@ -23,7 +23,6 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
-    private String userName;
     private String password;
     @Column(nullable = false)
     private UserRole userRole;
@@ -34,12 +33,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(userName, user.userName) && Objects.equals(password, user.password) && userRole == user.userRole;
+        return Objects.equals(id, user.id) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, userName, password, userRole);
+        return Objects.hash(id, email);
     }
 }
 

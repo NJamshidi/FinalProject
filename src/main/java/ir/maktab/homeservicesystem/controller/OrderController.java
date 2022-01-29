@@ -1,7 +1,6 @@
 package ir.maktab.homeservicesystem.controller;
 
-import ir.maktab.homeservicesystem.dto.OrderDto;
-import ir.maktab.homeservicesystem.dto.mapper.OfferAcceptParam;
+import ir.maktab.homeservicesystem.dto.order.OfferAcceptParam;
 import ir.maktab.homeservicesystem.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

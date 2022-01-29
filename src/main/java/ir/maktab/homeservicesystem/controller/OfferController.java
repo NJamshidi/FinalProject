@@ -1,6 +1,5 @@
 package ir.maktab.homeservicesystem.controller;
 
-import ir.maktab.homeservicesystem.dto.OfferDto;
 import ir.maktab.homeservicesystem.service.OfferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

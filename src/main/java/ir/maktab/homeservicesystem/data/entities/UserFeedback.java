@@ -17,11 +17,10 @@ public class UserFeedback {
     private int id;
     @Column(length = 100)
     private String text;
-    @ManyToOne
-    @JoinColumn(nullable = false)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Customer customer;
-    @ManyToOne
-    @JoinColumn(nullable = false)
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Expert expert;
     @OneToOne
     private Offer offer;

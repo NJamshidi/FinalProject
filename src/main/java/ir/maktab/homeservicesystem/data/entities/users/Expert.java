@@ -9,10 +9,12 @@ import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import ir.maktab.homeservicesystem.exception.NotFoundObjectException;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,12 +27,13 @@ import java.util.Set;
 public class Expert extends User {
     @Lob
     @Column(columnDefinition = "BLOB")
-    private byte[] image;
+    private String profileImage;
+    @Builder.Default
     private Double credit = 0.0;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Set<SubService> subService = new HashSet<>();
     ;
-    @OneToMany(mappedBy = "expert", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "expert", cascade =CascadeType.ALL)
     private Set<Offer> offers = new HashSet<>();
 
     @OneToMany(mappedBy = "expert", cascade = CascadeType.ALL)
@@ -38,7 +41,10 @@ public class Expert extends User {
 
     @OneToMany(mappedBy = "expert", cascade = CascadeType.ALL)
     private Set<Transaction> transaction;
-    private UserStatus expertStatus;
+
+    @CreationTimestamp
+    private Date registerDate;
+    private UserStatus expertStatus= UserStatus.NEW;;
     @Builder.Default
     private double ratingAvg = 0.0;
 
@@ -86,15 +92,15 @@ public class Expert extends User {
 
     @Override
     public String toString() {
-        return super.toString() +
-
-                "image=" + Arrays.toString(image) +
+        return "Expert{" +
+                "profileImage='" + profileImage + '\'' +
                 ", credit=" + credit +
                 ", subService=" + subService +
                 ", offers=" + offers +
                 ", userFeedbacks=" + userFeedbacks +
                 ", transaction=" + transaction +
                 ", expertStatus=" + expertStatus +
+                ", ratingAvg=" + ratingAvg +
                 '}';
     }
 }

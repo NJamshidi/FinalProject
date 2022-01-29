@@ -4,11 +4,10 @@ import ir.maktab.homeservicesystem.data.dao.SubServiceDao;
 import ir.maktab.homeservicesystem.data.entities.services.MainService;
 import ir.maktab.homeservicesystem.data.entities.services.SubService;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
-import ir.maktab.homeservicesystem.dto.SubServiceDto;
-import ir.maktab.homeservicesystem.dto.mapper.AddExpertToSubServiceResult;
-import ir.maktab.homeservicesystem.dto.mapper.ServiceCreateResult;
-import ir.maktab.homeservicesystem.dto.mapper.SubServiceCreateParam;
-import ir.maktab.homeservicesystem.dto.mapper.SubServiceMapper;
+import ir.maktab.homeservicesystem.dto.service.subService.AddExpertToSubService;
+import ir.maktab.homeservicesystem.dto.service.ServiceCreateResult;
+import ir.maktab.homeservicesystem.dto.service.subService.SubServiceCreateEntity;
+import ir.maktab.homeservicesystem.dto.service.subService.SubServiceCreateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +19,7 @@ import java.util.List;
 public class SubServiceService {
     private final SubServiceDao subServiceDao;
     private final ExpertService expertService;
-    private SubServiceMapper subServiceMapper;
+    private SubServiceCreateDto subServiceMapper;
     private final MainServiceService mainServiceService;
 
     public SubService loadById(int id) {
@@ -32,12 +31,12 @@ public class SubServiceService {
     }
 
     @Transactional
-    public AddExpertToSubServiceResult addExpert(int subServiceId, int expertId) {
+    public AddExpertToSubService addExpert(int subServiceId, int expertId) {
         SubService subService = subServiceDao.getById(subServiceId);
         Expert expert = expertService.findById(expertId);
         subService.addExpert(expert);
         SubService subServiceresult = subServiceDao.save(subService);
-        return AddExpertToSubServiceResult.builder()
+        return AddExpertToSubService.builder()
                 .proficientId(expertId)
                 .subCategoryId(subServiceresult.getId())
                 .success(true)
@@ -55,7 +54,7 @@ public class SubServiceService {
     }
 
     @Transactional
-    public ServiceCreateResult saveSubService(SubServiceCreateParam createParam) {
+    public ServiceCreateResult saveSubService(SubServiceCreateEntity createParam) {
         SubService subService = new SubService();
         subService.setName(createParam.getName());
 

@@ -1,7 +1,7 @@
 package ir.maktab.homeservicesystem.data.entities.services;
 
 
-import ir.maktab.homeservicesystem.dto.MainServiceDto;
+import ir.maktab.homeservicesystem.dto.service.mainService.MainServiceCreateDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,9 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class MainServiceList {
-    private List<MainServiceDto> mainServiceDtos;
+    private List<MainServiceCreateDto> mainServiceDtos;
 
-    public void addMainServiceDto(MainServiceDto mainServiceDto) {
+    public void addMainServiceDto(MainServiceCreateDto mainServiceDto) {
         if (mainServiceDtos == null) {
             mainServiceDtos = new ArrayList<>();
         }

@@ -1,8 +1,8 @@
 package ir.maktab.homeservicesystem.controller;
 
-import ir.maktab.homeservicesystem.dto.ExpertDto;
+import ir.maktab.homeservicesystem.dto.user.expert.ExpertCreateDto;
 import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordParam;
-import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordResult;
+import ir.maktab.homeservicesystem.dto.user.UserChangePasswordResult;
 import ir.maktab.homeservicesystem.service.ExpertService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,8 +19,8 @@ public class ExpertController {
     private final ExpertService expertService;
 
     @PostMapping
-    public ResponseEntity<ExpertDto> save(@ModelAttribute ExpertDto expertDto) throws IOException {
-        ExpertDto response = expertService.save(expertDto);
+    public ResponseEntity<ExpertCreateDto> save(@ModelAttribute ExpertCreateDto expertDto) throws IOException {
+        ExpertCreateDto response = expertService.save(expertDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -32,9 +32,9 @@ public class ExpertController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExpertDto> update(@PathVariable int id, @RequestBody ExpertDto expertDto) {
+    public ResponseEntity<ExpertCreateDto> update(@PathVariable int id, @RequestBody ExpertCreateDto expertDto) {
         expertDto.setId(id);
-        ExpertDto expertUpdate = null;
+        ExpertCreateDto expertUpdate = null;
         expertUpdate = expertService.updateExpert(expertDto);
         return ResponseEntity.ok(expertUpdate);
     }

@@ -3,14 +3,12 @@ package ir.maktab.homeservicesystem.service;
 
 import ir.maktab.homeservicesystem.data.dao.CustomerDao;
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
-import ir.maktab.homeservicesystem.data.entities.users.CustomerList;
+import ir.maktab.homeservicesystem.dto.user.customer.CustomerList;
 import ir.maktab.homeservicesystem.data.enumaration.UserRole;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
 import ir.maktab.homeservicesystem.dto.CustomerDto;
-import ir.maktab.homeservicesystem.dto.UserDto;
-import ir.maktab.homeservicesystem.dto.mapper.CustomerMapper;
 import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordParam;
-import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordResult;
+import ir.maktab.homeservicesystem.dto.user.UserChangePasswordResult;
 import ir.maktab.homeservicesystem.exception.DuplicateInformationException;
 import ir.maktab.homeservicesystem.exception.IncorrectInformationException;
 import ir.maktab.homeservicesystem.validation.Validation;

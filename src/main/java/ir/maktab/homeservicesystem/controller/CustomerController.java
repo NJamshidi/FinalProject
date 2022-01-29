@@ -3,9 +3,8 @@ package ir.maktab.homeservicesystem.controller;
 
 import ir.maktab.homeservicesystem.data.entities.Address;
 import ir.maktab.homeservicesystem.dto.CustomerDto;
-import ir.maktab.homeservicesystem.dto.UserDto;
 import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordParam;
-import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordResult;
+import ir.maktab.homeservicesystem.dto.user.UserChangePasswordResult;
 import ir.maktab.homeservicesystem.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +21,7 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<CustomerDto> save(@RequestBody CustomerDto customerDto) {
+        customerService.saveCustomer(customerDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(customerDto);
     }
 

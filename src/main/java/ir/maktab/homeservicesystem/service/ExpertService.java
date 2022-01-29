@@ -3,13 +3,12 @@ package ir.maktab.homeservicesystem.service;
 
 import ir.maktab.homeservicesystem.data.dao.ExpertDao;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
-import ir.maktab.homeservicesystem.data.entities.users.ExpertList;
+import ir.maktab.homeservicesystem.dto.user.expert.ExpertList;
 import ir.maktab.homeservicesystem.data.enumaration.UserRole;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
-import ir.maktab.homeservicesystem.dto.ExpertDto;
-import ir.maktab.homeservicesystem.dto.mapper.ExpertMapper;
+import ir.maktab.homeservicesystem.dto.user.expert.ExpertCreateDto;
 import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordParam;
-import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordResult;
+import ir.maktab.homeservicesystem.dto.user.UserChangePasswordResult;
 import ir.maktab.homeservicesystem.exception.DuplicateInformationException;
 import ir.maktab.homeservicesystem.exception.IncorrectInformationException;
 import ir.maktab.homeservicesystem.validation.Validation;
@@ -37,7 +36,7 @@ public class ExpertService {
 //    }
 
 
-    public ExpertDto save(ExpertDto expertDto) {
+    public ExpertCreateDto save(ExpertCreateDto expertDto) {
         Expert expert = expertMapper.toEntity(expertDto);
         Expert foundedByEmail = findExpertByEmail(expert.getEmail());
         if (foundedByEmail != null) {
@@ -51,7 +50,7 @@ public class ExpertService {
         expert.setUserRole(UserRole.EXPERT);
         expert.setCredit(0.0);
         Expert expertSave = expertDao.save(expert);
-        ExpertDto expertSaveDto = expertMapper.toDto(expertSave);
+        ExpertCreateDto expertSaveDto = expertMapper.toDto(expertSave);
         return expertSaveDto;
     }
 
@@ -68,7 +67,7 @@ public class ExpertService {
         return update(expert);
     }
 
-    public ExpertDto updateExpert(ExpertDto expertDto) {
+    public ExpertCreateDto updateExpert(ExpertCreateDto expertDto) {
         Expert expert = expertMapper.toEntity(expertDto);
         Expert foundedByEmail = findExpertByEmail(expert.getEmail());
         if (foundedByEmail != null && !Objects.equals(foundedByEmail.getId(), expert.getId())) {
