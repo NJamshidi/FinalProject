@@ -35,7 +35,7 @@ public class CustomerController {
     @PutMapping("/{id}")
     public ResponseEntity<CustomerDto> update(@PathVariable int id, @RequestBody CustomerDto customerDto) {
 
-        CustomerDto customerDto1 = customerService.loadByIdReturnDto(id);
+        CustomerDto customerDto1 = customerService.findCustomerByIdReturnDto(id);
         int addressId = customerDto1.getAddress().getId();
         Address address = customerDto.getAddress();
         address.setId(addressId);

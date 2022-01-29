@@ -70,8 +70,4 @@ public class AdminService extends BaseService<Admin, Integer> {
         admin.setPassword(newPassword);
         return super.update(admin);
     }
-
-    public Admin loadByEmail(String email) {
-        return adminDao.findByEmail(email);
-    }
 }

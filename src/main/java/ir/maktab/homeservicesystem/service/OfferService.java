@@ -6,7 +6,9 @@ import ir.maktab.homeservicesystem.data.entities.Order;
 import ir.maktab.homeservicesystem.data.entities.services.SubService;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
 import ir.maktab.homeservicesystem.data.enumaration.OrderStatus;
-import ir.maktab.homeservicesystem.dto.offer.OfferMapper;
+import ir.maktab.homeservicesystem.dto.offer.OfferCreateDto;
+import ir.maktab.homeservicesystem.dto.offer.OfferCreateEntity;
+import ir.maktab.homeservicesystem.dto.offer.OfferCreateResult;
 import ir.maktab.homeservicesystem.exception.OfferException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,6 @@ import java.util.Set;
 public class OfferService extends BaseService<Offer, Integer> {
     private final OfferDao offerDao;
     private final OrderService orderService;
-    private OfferMapper offerMapper;
     private final ExpertService expertService;
 
     //    @Autowired
@@ -35,41 +36,44 @@ public class OfferService extends BaseService<Offer, Integer> {
         setJpaRepository(offerDao);
     }
 
-    public List<OfferDto> loadByOrderIdSortAsc(int orderId) {
+    public List<OfferCreateDto> findOfferByOrderIdSortAsc(int orderId) {
         List<Offer> offers = offerDao.findAllByOrder_IdOrderByPriceAsc(orderId);
 
-        List<OfferDto> offerDtos = new ArrayList<>();
-        offers.forEach(o -> offerDtos.add(offerMapper.toDto(o)));
+        List<OfferCreateDto> offerDtos = new ArrayList<>();
+        offers.forEach(o -> offerDtos.add(new OfferCreateDto().toDto(o)));
         return offerDtos;
     }
-    public List<OfferDto> loadByExpertId(int expertId) {
+
+    public List<OfferCreateDto> findOfferByExpertId(int expertId) {
         List<Offer> offers = offerDao.findAllByExpert_Id(expertId);
 
-        List<OfferDto> offerDtos = new ArrayList<>();
-        offers.forEach(o -> offerDtos.add(offerMapper.toDto(o)));
+        List<OfferCreateDto> offerDtos = new ArrayList<>();
+        offers.forEach(o -> offerDtos.add(new OfferCreateDto().toDto(o)));
         return offerDtos;
     }
 
     @Transactional
-    public OfferDto sendOffer(OfferDto offerDto) {
-        Expert expert = expertService.findById(offerDto.getId());
+    public OfferCreateResult sendOffer(OfferCreateEntity offerCreateEntity) {
+        Expert expert = expertService.findExpertById(offerCreateEntity.getExpertId());
         Set<SubService> expertSubService = expert.getSubService();
-        Order order = orderService.findById(offerDto.getId());
+        Order order = orderService.findById(offerCreateEntity.getOrderId());
         SubService orderSubService = order.getSubService();
         if (!expertSubService.contains(orderSubService)) {
             throw new OfferException("The expert not have expertise");
         }
-        double expertSuggestedPrice = offerDto.getPrice();
+        double expertSuggestedPrice = offerCreateEntity.getPrice();
         double orderSuggestedPrice = order.getPrice();
         if (expertSuggestedPrice < orderSuggestedPrice) {
             throw new OfferException("expert suggestion price is less than order suggestion price");
         }
-        Offer offer = offerMapper.toEntity(offerDto);
+        Offer offer = offerCreateEntity.toEntity(order,expert);
         order.setStatus(OrderStatus.UNDER_SELECTION); //wait for expert selection
         order.addOffer(offer); //get list and add
         offer.setOrder(order);
-        Offer saveResult=offerDao.save(offer);
-        return offerMapper.toDto(saveResult);
+        Offer saveOffer=offerDao.save(offer);
+        return OfferCreateResult.builder()
+                .offerId(saveOffer.getId())
+                .build();
     }
   /*  public List<Offer> findByOrder(Order order) {
         return offerDao.findByOrder(order, Sort.by("expert.rate", "price").descending());

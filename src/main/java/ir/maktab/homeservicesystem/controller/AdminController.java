@@ -23,31 +23,31 @@ public class AdminController {
 
     @GetMapping("/customers")
     public ResponseEntity<CustomerList> showAllCustomers() {
-        CustomerList customerList = customerService.loadAllCustomers();
+        CustomerList customerList = customerService.findAllCustomers();
         return ResponseEntity.ok(customerList);
     }
 
     @GetMapping("/{id}/customers/{status}")
     public ResponseEntity<CustomerList> showAllCustomersByStatus(@PathVariable UserStatus status, @PathVariable int id) {
-        CustomerList customerList = customerService.loadAllCustomersByStatus(status);
+        CustomerList customerList = customerService.findAllCustomersByStatus(status);
         return ResponseEntity.ok(customerList);
     }
 
     @GetMapping("/{id}/experts")
     public ResponseEntity<ExpertList> showAllExperts(@PathVariable int id) {
-        ExpertList expertList = expertService.loadAllExperts();
+        ExpertList expertList = expertService.findAllExperts();
         return ResponseEntity.ok(expertList);
     }
 
     @GetMapping("/{id}/experts/{status}")
     public ResponseEntity<ExpertList> showAllExpertsByStatus(@PathVariable UserStatus status, @PathVariable int id) {
-        ExpertList expertList = expertService.loadAllByStatus(status);
+        ExpertList expertList = expertService.findAllExpertsByStatus(status);
         return ResponseEntity.ok(expertList);
     }
 
     @GetMapping("/{id}/experts/subService/{subServiceId}")
     public ResponseEntity<ExpertList> showAllExpertsBySubServiceId(@PathVariable int subServiceId, @PathVariable int id) {
-        ExpertList expertList = expertService.loadBySubServiceId(subServiceId);
+        ExpertList expertList = expertService.findExpertsBySubServiceId(subServiceId);
         return ResponseEntity.ok(expertList);
     }
 }

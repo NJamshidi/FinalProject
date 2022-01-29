@@ -6,8 +6,8 @@ import ir.maktab.homeservicesystem.data.entities.services.SubService;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
 import ir.maktab.homeservicesystem.dto.service.subService.AddExpertToSubService;
 import ir.maktab.homeservicesystem.dto.service.ServiceCreateResult;
+import ir.maktab.homeservicesystem.dto.service.subService.RemoveExpertFromSubService;
 import ir.maktab.homeservicesystem.dto.service.subService.SubServiceCreateEntity;
-import ir.maktab.homeservicesystem.dto.service.subService.SubServiceCreateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,46 +19,49 @@ import java.util.List;
 public class SubServiceService {
     private final SubServiceDao subServiceDao;
     private final ExpertService expertService;
-    private SubServiceCreateDto subServiceMapper;
     private final MainServiceService mainServiceService;
 
-    public SubService loadById(int id) {
+    public SubService findSubServiceById(int id) {
         return subServiceDao.getById(id);
     }
 
-    public List<SubService> findByMainServiceId(int id) {
+    public List<SubService> findSubServicesByMainServiceId(int id) {
         return subServiceDao.findByMainServiceId(id);
     }
 
     @Transactional
     public AddExpertToSubService addExpert(int subServiceId, int expertId) {
         SubService subService = subServiceDao.getById(subServiceId);
-        Expert expert = expertService.findById(expertId);
+        Expert expert = expertService.findExpertById(expertId);
         subService.addExpert(expert);
-        SubService subServiceresult = subServiceDao.save(subService);
+        SubService result = subServiceDao.save(subService);
         return AddExpertToSubService.builder()
-                .proficientId(expertId)
-                .subCategoryId(subServiceresult.getId())
-                .success(true)
+                .expertId(expertId)
+                .subServiceId(result.getId())
+                .successFull(true)
                 .build();
     }
 
     @Transactional
-    public SubServiceDto removeExpert(int subServiceId, int expertId) {
+    public RemoveExpertFromSubService removeExpert(int subServiceId, int expertId) {
         SubService subService = subServiceDao.getById(subServiceId);
-        Expert expert = expertService.findById(expertId);
+        Expert expert = expertService.findExpertById(expertId);
         subService.removeExpert(expert);
         expert.removeSubService(subService);
         SubService subServiceResult = subServiceDao.save(subService);
-        return subServiceMapper.toDto(subServiceResult);
+        return RemoveExpertFromSubService.builder()
+                .expertId(expertId)
+                .subServiceId(subServiceResult.getId())
+                .successFull(true)
+                .build();
     }
 
     @Transactional
-    public ServiceCreateResult saveSubService(SubServiceCreateEntity createParam) {
+    public ServiceCreateResult saveSubService(SubServiceCreateEntity subServiceCreateEntity) {
         SubService subService = new SubService();
-        subService.setName(createParam.getName());
+        subService.setName(subServiceCreateEntity.getName());
 
-        MainService mainService = mainServiceService.loadById(createParam.getMainCategoryId());
+        MainService mainService = mainServiceService.findMainServiceById(subServiceCreateEntity.getMainServiceId());
         subService.setMainService(mainService);
         mainService.addSubService(subService);
 

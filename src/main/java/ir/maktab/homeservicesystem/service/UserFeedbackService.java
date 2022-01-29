@@ -7,7 +7,8 @@ import ir.maktab.homeservicesystem.data.entities.UserFeedback;
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
 import ir.maktab.homeservicesystem.data.enumaration.OrderStatus;
-import ir.maktab.homeservicesystem.dto.mapper.UserFeedbackMapper;
+import ir.maktab.homeservicesystem.dto.userFeedback.UserFeedbackCreateEntity;
+import ir.maktab.homeservicesystem.dto.userFeedback.UserFeedbackCreateResult;
 import ir.maktab.homeservicesystem.exception.FeedbackException;
 import ir.maktab.homeservicesystem.exception.NotFoundObjectException;
 import lombok.RequiredArgsConstructor;
@@ -19,16 +20,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserFeedbackService {
     private final UserFeedbackDao userFeedbackDao;
     private final CustomerService customerService;
-    private UserFeedbackMapper userFeedbackMapper;
 
     @Transactional
-    public UserFeedbackDto save(UserFeedbackDto userFeedbackDto) {
-        Customer customer = customerService.loadById(userFeedbackDto.getId());
+    public UserFeedbackCreateResult save(UserFeedbackCreateEntity userFeedbackCreateEntity) {
+        Customer customer = customerService.findCustomerById(userFeedbackCreateEntity.getCustomerId());
 
         Order order = customer.getOrders().stream()
-                .filter(o -> o.getId() == userFeedbackDto.getId())
+                .filter(o -> o.getId() == userFeedbackCreateEntity.getOrderId())
                 .findFirst()
-                .orElseThrow(() -> new NotFoundObjectException("order ", userFeedbackDto.getId()));
+                .orElseThrow(() -> new NotFoundObjectException("order ", userFeedbackCreateEntity.getOrderId()));
 
         if (order.getStatus() != OrderStatus.DONE) {
             throw new FeedbackException("Feedback are only sent for orders with done status");
@@ -37,9 +37,9 @@ public class UserFeedbackService {
         Offer acceptOffer = order.getAcceptedOffer();
         Expert expert = acceptOffer.getExpert();
 
-        UserFeedback userFeedback = userFeedbackMapper.toEntity(userFeedbackDto);
+        UserFeedback userFeedback = userFeedbackCreateEntity.toEntity(expert,customer,acceptOffer);
         expert.addUserFeedback(userFeedback);
         UserFeedback saveUserFeedbackResult = userFeedbackDao.save(userFeedback);
-        return userFeedbackMapper.toDto(saveUserFeedbackResult);
+        return new UserFeedbackCreateResult(saveUserFeedbackResult.getId());
     }
 }

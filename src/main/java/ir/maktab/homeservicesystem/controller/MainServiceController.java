@@ -31,14 +31,14 @@ public class MainServiceController {
 
     @GetMapping
     public ResponseEntity<MainServiceList> loadAll() {
-        MainServiceList mainServiceList = mainServiceService.loadAll();
+        MainServiceList mainServiceList = mainServiceService.findAllMainServices();
         return ResponseEntity.ok(mainServiceList);
     }
 
     @Transactional(readOnly = true)
     @GetMapping("/{id}")
     public ResponseEntity<MainServiceCreateDto> loadById(@PathVariable int id) {
-        MainServiceCreateDto mainServiceDto = mainServiceService.loadByIdReturnDto(id);
+        MainServiceCreateDto mainServiceDto = mainServiceService.findMainServiceByIdReturnDto(id);
         return ResponseEntity.ok(mainServiceDto);
     }
 }

@@ -3,11 +3,10 @@ package ir.maktab.homeservicesystem.service;
 
 import ir.maktab.homeservicesystem.data.dao.CustomerDao;
 import ir.maktab.homeservicesystem.data.entities.users.Customer;
-import ir.maktab.homeservicesystem.dto.user.customer.CustomerList;
+import ir.maktab.homeservicesystem.dto.user.UserChangePasswordEntity;
+import ir.maktab.homeservicesystem.dto.user.customer.*;
 import ir.maktab.homeservicesystem.data.enumaration.UserRole;
 import ir.maktab.homeservicesystem.data.enumaration.UserStatus;
-import ir.maktab.homeservicesystem.dto.CustomerDto;
-import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordParam;
 import ir.maktab.homeservicesystem.dto.user.UserChangePasswordResult;
 import ir.maktab.homeservicesystem.exception.DuplicateInformationException;
 import ir.maktab.homeservicesystem.exception.IncorrectInformationException;
@@ -34,40 +33,38 @@ public class CustomerService {
 //    public void init() {
 //        setJpaRepository(customerDao);
 //    }
-    CustomerMapper customerMapper = new CustomerMapper();
 
-    public CustomerDto saveCustomer(CustomerDto customerDto) {
-        Customer customer = customerMapper.toEntity(customerDto);
+    public CustomerCreateResult saveCustomer(CustomerCreateEntity customerCreateEntity) {
+        Customer customer = customerCreateEntity.toEntity();
         Customer foundedByEmail = findCustomerByEmail(customer.getEmail());
         if (foundedByEmail != null) {
             throw new DuplicateInformationException("this email used with another customer");
         }
 
-        if (validation.validPassword(customerDto.getPassword())) {
+        if (validation.validPassword(customer.getPassword())) {
             throw new IncorrectInformationException("Password length must be at least 8 character and contain letters and numbers");
         }
+        customer.setUserRole(UserRole.CUSTOMER);
         customer.setCustomerStatus(UserStatus.NEW);
         customer.setCredit(0.0);
         Customer saveCustomer = customerDao.save(customer);
-        CustomerDto customerDtoSave = customerMapper.toDto(saveCustomer);
-        return customerDtoSave;
+        return new CustomerCreateResult(saveCustomer.getId());
     }
 
-    public CustomerDto updateCustomer(CustomerDto customerDto) {
-        Customer customer = customerMapper.toEntity(customerDto);
+    public CustomerUpdateResult updateCustomer(CustomerUpdateEntity customerUpdateEntity) {
+        Customer customer = customerUpdateEntity.toEntity();
         Customer foundedById = customerDao.getById(customer.getId());
         if (!foundedById.getPassword().equals(customer.getPassword())) {
             throw new IncorrectInformationException("password Wrong!");
         }
-        Customer foundedByEmail = loadByEmail(customer.getEmail());
+        Customer foundedByEmail = findCustomerByEmail(customer.getEmail());
         if (foundedByEmail != null && !Objects.equals(foundedByEmail.getId(), customer.getId())) {
             throw new DuplicateInformationException("this email used with another customer");
         }
         customer.setUserRole(UserRole.CUSTOMER);
         customer.setCustomerStatus(UserStatus.UNDER_APPROVAL);
         Customer customerUpdate = customerDao.save(customer);
-        CustomerDto customerDtoUpdate = customerMapper.toDto(customerUpdate);
-        return customerDtoUpdate;
+        return CustomerUpdateResult.builder().id(customerUpdate.getId()).successFull(true).build();
     }
 
     public Customer findCustomerByEmail(String email) {
@@ -75,11 +72,11 @@ public class CustomerService {
     }
 
     @Transactional
-    public UserChangePasswordResult changePassword(UserChangePasswordParam userChangePasswordParam) {
-        int customerId = userChangePasswordParam.getUserId();
-        String oldPassword = userChangePasswordParam.getCurrentPassword();
-        String newPassword = userChangePasswordParam.getNewPassword();
-        String confirmNewPass = userChangePasswordParam.getNewPasswordConfirm();
+    public UserChangePasswordResult changePassword(UserChangePasswordEntity userChangePasswordEntity) {
+        int customerId = userChangePasswordEntity.getUserId();
+        String oldPassword = userChangePasswordEntity.getCurrentPassword();
+        String newPassword = userChangePasswordEntity.getNewPassword();
+        String confirmNewPass = userChangePasswordEntity.getNewPasswordConfirm();
         if (!newPassword.equals(confirmNewPass)) {
             throw new IncorrectInformationException("New password and confirm password doesn't match");
         }
@@ -96,31 +93,27 @@ public class CustomerService {
     }
 
     @Transactional(readOnly = true)
-    public Customer loadById(int customerId) {
+    public Customer findCustomerById(int customerId) {
         return customerDao.getById(customerId);
     }
 
-    public CustomerDto loadByIdReturnDto(int customerId) {
+    public CustomerCreateDto findCustomerByIdReturnDto(int customerId) {
         Customer customer = customerDao.getById(customerId);
-        CustomerDto customerDto = customerMapper.toDto(customer);
-        return customerDto;
+        return new CustomerCreateDto().toDto(customer);
     }
 
-    private Customer loadByEmail(String email) {
-        return customerDao.findByEmail(email);
-    }
 
-    public CustomerList loadAllCustomers() {
+    public CustomerList findAllCustomers() {
         List<Customer> customerList = customerDao.findAll();
         CustomerList customerListResult = new CustomerList();
-        customerList.forEach((c) -> customerListResult.addCustomerDto(customerMapper.toDto(c)));
+        customerList.forEach((c) -> customerListResult.addCustomerDto(new CustomerCreateDto().toDto(c)));
         return customerListResult;
     }
 
-    public CustomerList loadAllCustomersByStatus(UserStatus status) {
+    public CustomerList findAllCustomersByStatus(UserStatus status) {
         List<Customer> customerList = customerDao.findAllByCustomerStatus(status);
         CustomerList customerListResult = new CustomerList();
-        customerList.forEach((c) -> customerListResult.addCustomerDto(customerMapper.toDto(c)));
+        customerList.forEach((c) -> customerListResult.addCustomerDto(new CustomerCreateDto().toDto(c)));
         return customerListResult;
     }
 

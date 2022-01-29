@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class AddExpertToSubService {
-    private int subCategoryId;
+    private int subServiceId;
     private int expertId;
     private boolean successFull;
 }

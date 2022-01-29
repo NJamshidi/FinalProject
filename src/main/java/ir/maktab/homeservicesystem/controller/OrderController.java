@@ -19,7 +19,7 @@ public class OrderController {
     //    http://localhost:8080/orders/filter?customerId={customerId}
     @GetMapping("/filter")
     public ResponseEntity<List<OrderDto>> getAllByCustomerId(@RequestParam int customerId){
-        List<OrderDto> result = orderService.findAllByCustomerId(customerId);
+        List<OrderDto> result = orderService.findAllOrderByCustomerId(customerId);
         return ResponseEntity.ok(result);
     }
 

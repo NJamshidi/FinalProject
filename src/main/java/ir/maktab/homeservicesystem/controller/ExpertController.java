@@ -20,7 +20,7 @@ public class ExpertController {
 
     @PostMapping
     public ResponseEntity<ExpertCreateDto> save(@ModelAttribute ExpertCreateDto expertDto) throws IOException {
-        ExpertCreateDto response = expertService.save(expertDto);
+        ExpertCreateDto response = expertService.saveExpert(expertDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

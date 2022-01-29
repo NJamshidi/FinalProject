@@ -24,14 +24,14 @@ import java.util.List;
         //    http://localhost:8080/offers/filter?orderId={orderId}
         @GetMapping("/filter")
         public ResponseEntity<List<OfferDto>> getByOrderIdAsc(@RequestParam int orderId) {
-            List<OfferDto> offerDtos = offerService.loadByOrderIdSortAsc(orderId);
+            List<OfferDto> offerDtos = offerService.findOfferByOrderIdSortAsc(orderId);
             return ResponseEntity.ok(offerDtos);
         }
 
         //    http://localhost:8080/orders/filterByProficientId?proficientId={proficientId}
         @GetMapping("/filterByProficientId")
         public ResponseEntity<List<OfferDto>> getAllByExpertId(@RequestParam int expertId) {
-            List<OfferDto> resultDto = offerService.loadByExpertId(expertId);
+            List<OfferDto> resultDto = offerService.findOfferByExpertId(expertId);
             return ResponseEntity.ok(resultDto);
         }
     }
