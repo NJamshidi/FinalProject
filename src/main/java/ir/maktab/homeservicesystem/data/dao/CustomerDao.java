@@ -14,7 +14,7 @@ import java.util.List;
 public interface CustomerDao extends JpaRepository<Customer, Integer> {
     Customer findByEmail(String email);
 
-    Customer findByUserNameAndPassword(String userName, String password);
+//    Customer findByUserNameAndPassword(String userName, String password);
     List<Customer> findAllByCustomerStatus(UserStatus status);
     @Modifying
     @Query(value = "UPDATE Customer c set c.password =:password where c.id=:id")

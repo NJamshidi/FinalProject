@@ -123,7 +123,7 @@ public class ExpertService {
     }
 
     public ExpertList findAllExpertsByStatus(UserStatus status) {
-        List<Expert> expertList = expertDao.findAllByStatus(status);
+        List<Expert> expertList = expertDao.findAllByExpertStatus(status);
         ExpertList expertListResult = new ExpertList();
         expertList.forEach((p) -> expertListResult.addExpertDto(new ExpertCreateDto().toDto(p)));
         return expertListResult;

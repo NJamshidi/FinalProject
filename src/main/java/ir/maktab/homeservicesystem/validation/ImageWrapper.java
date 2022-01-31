@@ -1,3 +1,4 @@
+/*
 package ir.maktab.homeservicesystem.validation;
 
 import ir.maktab.homeservicesystem.data.entities.users.Expert;
@@ -20,10 +21,11 @@ public class ImageWrapper {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            expert.setImage(imageData);
+            expert.setProfileImage(imageData);
         } else
             throw new RuntimeException("image is very large for upload");
     }
 
 
 }
+*/

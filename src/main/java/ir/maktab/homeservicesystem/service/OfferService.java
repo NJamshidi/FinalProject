@@ -56,7 +56,7 @@ public class OfferService extends BaseService<Offer, Integer> {
     public OfferCreateResult sendOffer(OfferCreateEntity offerCreateEntity) {
         Expert expert = expertService.findExpertById(offerCreateEntity.getExpertId());
         Set<SubService> expertSubService = expert.getSubService();
-        Order order = orderService.findById(offerCreateEntity.getOrderId());
+        Order order = orderService.findOrderById(offerCreateEntity.getOrderId());
         SubService orderSubService = order.getSubService();
         if (!expertSubService.contains(orderSubService)) {
             throw new OfferException("The expert not have expertise");

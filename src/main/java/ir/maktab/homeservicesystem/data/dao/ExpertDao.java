@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface ExpertDao extends JpaRepository<Expert, Integer> {
     Expert findByEmail(String email);
-    List<Expert> findAllByStatus(UserStatus status);
+    List<Expert> findAllByExpertStatus(UserStatus status);
 
     List<Expert> findAllBySubServiceId(int subServiceId);
     @Modifying

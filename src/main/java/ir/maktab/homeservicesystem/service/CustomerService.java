@@ -20,7 +20,6 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-
 public class CustomerService {
     private final CustomerDao customerDao;
     private Validation validation = new Validation();
@@ -48,6 +47,7 @@ public class CustomerService {
         customer.setCustomerStatus(UserStatus.NEW);
         customer.setCredit(0.0);
         Customer saveCustomer = customerDao.save(customer);
+        System.out.println("salam");
         return new CustomerCreateResult(saveCustomer.getId());
     }
 

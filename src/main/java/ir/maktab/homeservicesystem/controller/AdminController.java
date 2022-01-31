@@ -21,32 +21,32 @@ public class AdminController {
     private final ExpertService expertService;
 
 
-    @GetMapping("/customers")
-    public ResponseEntity<CustomerList> showAllCustomers() {
+    @GetMapping("/{id}/customers")
+    public ResponseEntity<CustomerList> showAllCustomers(@PathVariable int id) {
         CustomerList customerList = customerService.findAllCustomers();
         return ResponseEntity.ok(customerList);
     }
 
-    @GetMapping("/customers/{status}")
-    public ResponseEntity<CustomerList> showAllCustomersByStatus(@PathVariable UserStatus status) {
+    @GetMapping("/{id}/customers/{status}")
+    public ResponseEntity<CustomerList> showAllCustomersByStatus(@PathVariable UserStatus status,@PathVariable int id) {
         CustomerList customerList = customerService.findAllCustomersByStatus(status);
         return ResponseEntity.ok(customerList);
     }
 
-    @GetMapping("/experts")
-    public ResponseEntity<ExpertList> showAllExperts() {
+    @GetMapping("/{id}/experts")
+    public ResponseEntity<ExpertList> showAllExperts(@PathVariable int id) {
         ExpertList expertList = expertService.findAllExperts();
         return ResponseEntity.ok(expertList);
     }
 
-    @GetMapping("/experts/{status}")
-    public ResponseEntity<ExpertList> showAllExpertsByStatus(@PathVariable UserStatus status) {
+    @GetMapping("/{id}/experts/{status}")
+    public ResponseEntity<ExpertList> showAllExpertsByStatus(@PathVariable UserStatus status,@PathVariable int id) {
         ExpertList expertList = expertService.findAllExpertsByStatus(status);
         return ResponseEntity.ok(expertList);
     }
 
-    @GetMapping("/experts/subService/{subServiceId}")
-    public ResponseEntity<ExpertList> showAllExpertsBySubServiceId(@PathVariable int subServiceId) {
+    @GetMapping("/{id}/experts/subService/{subServiceId}")
+    public ResponseEntity<ExpertList> showAllExpertsBySubServiceId(@PathVariable int subServiceId,@PathVariable int id) {
         ExpertList expertList = expertService.findExpertsBySubServiceId(subServiceId);
         return ResponseEntity.ok(expertList);
     }
