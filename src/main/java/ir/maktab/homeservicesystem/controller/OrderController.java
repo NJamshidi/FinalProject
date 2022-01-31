@@ -1,6 +1,6 @@
 package ir.maktab.homeservicesystem.controller;
 
-import ir.maktab.homeservicesystem.dto.order.OfferAcceptParam;
+import ir.maktab.homeservicesystem.dto.order.*;
 import ir.maktab.homeservicesystem.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,28 +18,28 @@ public class OrderController {
 
     //    http://localhost:8080/orders/filter?customerId={customerId}
     @GetMapping("/filter")
-    public ResponseEntity<List<OrderDto>> getAllByCustomerId(@RequestParam int customerId){
-        List<OrderDto> result = orderService.findAllOrderByCustomerId(customerId);
+    public ResponseEntity<List<OrderCreateDto>> getAllByCustomerId(@RequestParam int customerId){
+        List<OrderCreateDto> result = orderService.findAllOrderByCustomerId(customerId);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping
-    public ResponseEntity<OrderDto> addOrder(@RequestBody OrderDto orderDto) {
-        OrderDto orderDtoResult = orderService.saveOrder(orderDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderDtoResult);
+    public ResponseEntity<OrderCreateResult> addOrder(@RequestBody OrderCreateEntity orderCreateEntity) {
+        OrderCreateResult orderCreateResult = orderService.saveOrder(orderCreateEntity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderCreateResult);
     }
 
     @PutMapping("/{orderId}")
-    public ResponseEntity<OrderDto> acceptOffer(@RequestBody OfferAcceptParam offerAcceptParam, @PathVariable int orderId) {
+    public ResponseEntity<OrderUpdateResult> acceptOffer(@RequestBody OfferAcceptParam offerAcceptParam, @PathVariable int orderId) {
         offerAcceptParam.setOrderId(orderId);
-        OrderDto orderDtoUpdateResult = orderService.acceptOffer(offerAcceptParam);
+        OrderUpdateResult orderDtoUpdateResult = orderService.acceptOffer(offerAcceptParam);
         return ResponseEntity.ok(orderDtoUpdateResult);
     }
 
     //    http://localhost:8080/orders/finish?orderId={orderId}
     @PutMapping("/finish")
-    public ResponseEntity<OrderDto> finishOrder(@RequestParam int orderId) {
-        OrderDto orderDtoUpdateResult = orderService.finishOrder(orderId);
+    public ResponseEntity<OrderUpdateResult> finishOrder(@RequestParam int orderId) {
+        OrderUpdateResult orderDtoUpdateResult = orderService.finishOrder(orderId);
         return ResponseEntity.ok(orderDtoUpdateResult);
     }
 

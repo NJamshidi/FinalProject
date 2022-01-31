@@ -1,5 +1,8 @@
 package ir.maktab.homeservicesystem.controller;
 
+import ir.maktab.homeservicesystem.dto.offer.OfferCreateDto;
+import ir.maktab.homeservicesystem.dto.offer.OfferCreateEntity;
+import ir.maktab.homeservicesystem.dto.offer.OfferCreateResult;
 import ir.maktab.homeservicesystem.service.OfferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,22 +19,22 @@ import java.util.List;
         private final OfferService offerService;
 
         @PostMapping
-        public ResponseEntity<OfferDto> sendOffer(@RequestBody OfferDto offerDto1) {
-            OfferDto offerDto = offerService.sendOffer(offerDto1);
-            return ResponseEntity.status(HttpStatus.CREATED).body(offerDto);
+        public ResponseEntity<OfferCreateResult> sendOffer(@RequestBody OfferCreateEntity offerCreateEntity) {
+            OfferCreateResult offerCreateResult = offerService.sendOffer(offerCreateEntity);
+            return ResponseEntity.status(HttpStatus.CREATED).body(offerCreateResult);
         }
 
         //    http://localhost:8080/offers/filter?orderId={orderId}
         @GetMapping("/filter")
-        public ResponseEntity<List<OfferDto>> getByOrderIdAsc(@RequestParam int orderId) {
-            List<OfferDto> offerDtos = offerService.findOfferByOrderIdSortAsc(orderId);
+        public ResponseEntity<List<OfferCreateDto>> getByOrderIdAsc(@RequestParam int orderId) {
+            List<OfferCreateDto> offerDtos = offerService.findOfferByOrderIdSortAsc(orderId);
             return ResponseEntity.ok(offerDtos);
         }
 
-        //    http://localhost:8080/orders/filterByProficientId?proficientId={proficientId}
-        @GetMapping("/filterByProficientId")
-        public ResponseEntity<List<OfferDto>> getAllByExpertId(@RequestParam int expertId) {
-            List<OfferDto> resultDto = offerService.findOfferByExpertId(expertId);
+        //    http://localhost:8080/orders/filterByExpertId?expertId={expertId}
+        @GetMapping("/filterByExpertId")
+        public ResponseEntity<List<OfferCreateDto>> getAllByExpertId(@RequestParam int expertId) {
+            List<OfferCreateDto> resultDto = offerService.findOfferByExpertId(expertId);
             return ResponseEntity.ok(resultDto);
         }
     }

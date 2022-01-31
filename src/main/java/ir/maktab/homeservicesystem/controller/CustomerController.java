@@ -1,10 +1,8 @@
 package ir.maktab.homeservicesystem.controller;
 
-
-import ir.maktab.homeservicesystem.data.entities.Address;
-import ir.maktab.homeservicesystem.dto.CustomerDto;
-import ir.maktab.homeservicesystem.dto.mapper.UserChangePasswordParam;
+import ir.maktab.homeservicesystem.dto.user.UserChangePasswordEntity;
 import ir.maktab.homeservicesystem.dto.user.UserChangePasswordResult;
+import ir.maktab.homeservicesystem.dto.user.customer.*;
 import ir.maktab.homeservicesystem.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,30 +18,24 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<CustomerDto> save(@RequestBody CustomerDto customerDto) {
-        customerService.saveCustomer(customerDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(customerDto);
+    public ResponseEntity<CustomerCreateResult> save(@RequestBody CustomerCreateEntity customerCreateEntity) {
+        CustomerCreateResult customerCreateResult= customerService.saveCustomer(customerCreateEntity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerCreateResult);
     }
 
     @PutMapping("/{id}/password")
-    public ResponseEntity<UserChangePasswordResult> changePassword(@RequestBody UserChangePasswordParam changePasswordParam,@PathVariable int id) {
-        changePasswordParam.setUserId(id);
-        UserChangePasswordResult userChangePasswordResult = customerService.changePassword(changePasswordParam);
+    public ResponseEntity<UserChangePasswordResult> changePassword(@RequestBody UserChangePasswordEntity changePasswordEntity, @PathVariable int id) {
+        changePasswordEntity.setUserId(id);
+        UserChangePasswordResult userChangePasswordResult = customerService.changePassword(changePasswordEntity);
         return ResponseEntity.ok(userChangePasswordResult);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDto> update(@PathVariable int id, @RequestBody CustomerDto customerDto) {
+    public ResponseEntity<CustomerUpdateResult> update(@PathVariable int id, @RequestBody CustomerUpdateEntity customerUpdateEntity) {
 
-        CustomerDto customerDto1 = customerService.findCustomerByIdReturnDto(id);
-        int addressId = customerDto1.getAddress().getId();
-        Address address = customerDto.getAddress();
-        address.setId(addressId);
-        customerDto.setAddress(address);
+        customerUpdateEntity.setId(id);
 
-        customerDto.setId(id);
-
-        CustomerDto customerUpdateResult = customerService.updateCustomer(customerDto);
+        CustomerUpdateResult customerUpdateResult = customerService.updateCustomer(customerUpdateEntity);
         return ResponseEntity.ok(customerUpdateResult);
     }
 }

@@ -1,7 +1,11 @@
 package ir.maktab.homeservicesystem.controller;
 
 import ir.maktab.homeservicesystem.data.entities.services.MainServiceList;
+import ir.maktab.homeservicesystem.dto.service.ServiceCreateResult;
+import ir.maktab.homeservicesystem.dto.service.ServiceUpdateResult;
 import ir.maktab.homeservicesystem.dto.service.mainService.MainServiceCreateDto;
+import ir.maktab.homeservicesystem.dto.service.mainService.MainServiceCreateEntity;
+import ir.maktab.homeservicesystem.dto.service.mainService.MainServiceUpdateEntity;
 import ir.maktab.homeservicesystem.service.MainServiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,16 +21,16 @@ public class MainServiceController {
     private final MainServiceService mainServiceService;
 
     @PostMapping
-    public ResponseEntity<MainServiceCreateDto> createMainService(@RequestBody MainServiceCreateDto mainServiceDto) {
-        MainServiceCreateDto mainServiceResult = mainServiceService.saveMainService(mainServiceDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(mainServiceResult);
+    public ResponseEntity<ServiceCreateResult> createMainService(@RequestBody MainServiceCreateEntity mainServiceCreateEntity) {
+        ServiceCreateResult serviceResult = mainServiceService.saveMainService(mainServiceCreateEntity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(serviceResult);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MainServiceCreateDto> updateMainService(@RequestBody MainServiceCreateDto mainServiceDto, @PathVariable int id) {
-        mainServiceDto.setId(id);
-        MainServiceCreateDto mainServiceUpdateResult = mainServiceService.updateMainService(mainServiceDto);
-        return ResponseEntity.ok(mainServiceUpdateResult);
+    public ResponseEntity<ServiceUpdateResult> updateMainService(@RequestBody MainServiceUpdateEntity mainServiceUpdateEntity, @PathVariable int id) {
+        mainServiceUpdateEntity.setId(id);
+        ServiceUpdateResult updateResult = mainServiceService.updateMainService(mainServiceUpdateEntity);
+        return ResponseEntity.ok(updateResult);
     }
 
     @GetMapping

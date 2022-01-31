@@ -3,6 +3,7 @@ package ir.maktab.homeservicesystem.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import ir.maktab.homeservicesystem.dto.service.subService.AddExpertToSubService;
 import ir.maktab.homeservicesystem.dto.service.ServiceCreateResult;
+import ir.maktab.homeservicesystem.dto.service.subService.RemoveExpertFromSubService;
 import ir.maktab.homeservicesystem.dto.service.subService.SubServiceCreateEntity;
 import ir.maktab.homeservicesystem.service.SubServiceService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,8 @@ public class SubServiceController {
 
     @Operation(summary = "Create new subService")
     @PostMapping
-    public ResponseEntity<ServiceCreateResult> createSubService(@RequestBody SubServiceCreateEntity createParam) {
-        ServiceCreateResult serviceCreateResult = subServiceService.saveSubService(createParam);
+    public ResponseEntity<ServiceCreateResult> createSubService(@RequestBody SubServiceCreateEntity subServiceCreateEntity) {
+        ServiceCreateResult serviceCreateResult = subServiceService.saveSubService(subServiceCreateEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(serviceCreateResult);
     }
 
@@ -32,10 +33,10 @@ public class SubServiceController {
     }
 
     @DeleteMapping("/{subServiceId}/experts/{expertId}")
-    public ResponseEntity<SubServiceDto> removeExpertFromSubServiceResult(
+    public ResponseEntity<RemoveExpertFromSubService> removeExpertFromSubService(
             @PathVariable int subServiceId, @PathVariable int expertId) {
-        SubServiceDto removeExpertFromSubServiceResult = subServiceService.removeExpert(expertId, subServiceId);
-        return ResponseEntity.ok(removeExpertFromSubServiceResult);
+        RemoveExpertFromSubService removeExpertFromSubService = subServiceService.removeExpert(expertId, subServiceId);
+        return ResponseEntity.ok(removeExpertFromSubService);
     }
 
 }
