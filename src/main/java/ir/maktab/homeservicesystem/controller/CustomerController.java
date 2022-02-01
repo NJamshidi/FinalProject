@@ -17,7 +17,7 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<CustomerCreateResult> save(@RequestBody CustomerCreateEntity customerCreateEntity) {
         CustomerCreateResult customerCreateResult= customerService.saveCustomer(customerCreateEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(customerCreateResult);
